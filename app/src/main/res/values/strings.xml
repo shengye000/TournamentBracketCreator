@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tournament</string>
+    <string name="title_string">TOURNAMENT BRACKET CREATOR\n Select the type of bracket to use.</string>
+    <string name="single_elim_string">Simplest format where the winner advances to the next round
+while the loser is eliminated from the tournament until one person remains.</string>
+</resources>
