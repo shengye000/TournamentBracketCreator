@@ -28,6 +28,10 @@
         <activity android:name=".PreLim">
 
         </activity>
+        <activity android:name=".PreLim2">
+
+        </activity>
+
 
     </application>
 

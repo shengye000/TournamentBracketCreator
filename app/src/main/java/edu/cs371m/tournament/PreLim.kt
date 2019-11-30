@@ -5,15 +5,22 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.prelim_settings.*
+import java.io.Serializable
 
-class PreLim : AppCompatActivity(){
+
+class PreLim : AppCompatActivity(), Serializable{
 
     private lateinit var competitorList : ArrayList<String>
-    private lateinit var competitorListWins : HashMap<String, Int>
+    private lateinit var competitorListWins : ArrayList<PreLimData>
 
     private fun createBracket(){
 
-        if(number_of_rounds.text.isNotEmpty() && number_of_rounds.text.toString().toInt() >= 1 && number_of_rounds.text.toString().toInt() <= 6 && number_of_rounds.text.toString().toInt() <= competitorList.size/2){
+        if(!number_of_rounds.text.isNullOrEmpty()
+            && number_of_rounds.text.toString().toInt() >= 1
+            && number_of_rounds.text.toString().toInt() <= 6
+            && number_of_rounds.text.toString().toInt() <= competitorList.size/2)
+        {
+
             var ques1 = number_of_rounds.text.toString().toInt()
             if(rounds_to_proceed.text.isNotEmpty() && rounds_to_proceed.text.toString().toInt() <= ques1){
                 var ques2 = rounds_to_proceed.text.toString().toInt()
@@ -51,9 +58,9 @@ class PreLim : AppCompatActivity(){
         setContentView(R.layout.prelim_settings)
 
         competitorList = intent.getStringArrayListExtra("list")
-        competitorListWins = HashMap()
+        competitorListWins = ArrayList()
         for(i in competitorList.indices){
-            competitorListWins.put(competitorList[i], 0)
+            competitorListWins.add(i,PreLimData(competitorList[i], 0))
         }
 
         create_bracket.setOnClickListener {
