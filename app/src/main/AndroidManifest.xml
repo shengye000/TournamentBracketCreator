@@ -25,6 +25,9 @@
         <activity android:name=".Winner">
 
         </activity>
+        <activity android:name=".PreLim">
+
+        </activity>
 
     </application>
 

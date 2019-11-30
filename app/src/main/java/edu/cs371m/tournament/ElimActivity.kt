@@ -102,7 +102,9 @@ class ElimActivity : AppCompatActivity() {
 
         }
         if(bracketType == "pre"){
-
+            val intent = Intent(this, PreLim::class.java)
+            intent.putExtra("list", ArrayList(mutableList))
+            startActivity(intent)
         }
     }
 

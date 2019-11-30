@@ -126,10 +126,10 @@ class SingleElim : AppCompatActivity(){
             if(roundNumber == 1 && remainder != 0 && remainder / 2.toDouble().pow(N) <= 0.5){
                 neededListLength = remainder
             }
-
-            if(nextRound.size == neededListLength){
+            Log.d("calc", "remainder: " + remainder.toString() + "neededListLength: " + neededListLength.toString())
+            if(nextRound.size == previousRound.size - neededListLength){
                 //winner
-                if(neededListLength == 1){
+                if(neededListLength == 1 && nextRound.size == 1){
                     val intent = Intent(this, Winner::class.java)
                     intent.putExtra("winner", nextRound[0])
                     startActivity(intent)
