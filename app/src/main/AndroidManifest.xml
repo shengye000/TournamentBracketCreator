@@ -19,6 +19,13 @@
         <activity android:name=".ElimActivity">
 
         </activity>
+        <activity android:name=".SingleElim">
+
+        </activity>
+        <activity android:name=".Winner">
+
+        </activity>
+
     </application>
 
 </manifest>

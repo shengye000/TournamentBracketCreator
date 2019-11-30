@@ -1,5 +1,6 @@
 package edu.cs371m.tournament
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,7 +20,24 @@ class ElimActivity : AppCompatActivity() {
     fun singleBracket(){
         bracket_type_title.text = "Single Elimination"
         bracket_desc.text="Write the competitor name and Click Add or Remove."
+    }
 
+    fun doubleBracket(){
+        bracket_type_title.text = "Double Elimination"
+        bracket_desc.text="Write the competitor name and Click Add or Remove."
+    }
+
+    fun roundRobinBracket(){
+        bracket_type_title.text = "Round Robin"
+        bracket_desc.text="Write the competitor name and Click Add or Remove."
+    }
+
+    fun prelimBracket(){
+        bracket_type_title.text = "Pre Elimination"
+        bracket_desc.text="Write the competitor name and Click Add or Remove."
+    }
+
+    fun createBracket(){
         viewManager = LinearLayoutManager(this)
         viewAdapter = ElimActivityAdapter(mutableList)
 
@@ -60,18 +78,32 @@ class ElimActivity : AppCompatActivity() {
                 Toast.makeText(this, "This name is not currently in the list.", Toast.LENGTH_LONG).show()
             }
         }
+        create_button.setOnClickListener{
+            if(mutableList.size < 2){
+                Toast.makeText(this, "You must have 2 or more participants to create the bracket", Toast.LENGTH_LONG).show()
+            }
+            else{
+                bracketActivity()
+            }
+        }
     }
 
-    fun doubleBracket(){
+    fun bracketActivity(){
+        if(bracketType == "s"){
+            val intent = Intent(this, SingleElim::class.java)
+            intent.putExtra("list", ArrayList(mutableList))
+            intent.putExtra("round", 1)
+            startActivity(intent)
+        }
+        if(bracketType == "d"){
 
-    }
+        }
+        if(bracketType == "rr"){
 
-    fun roundRobinBracket(){
+        }
+        if(bracketType == "pre"){
 
-    }
-
-    fun prelimBracket(){
-
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,5 +124,7 @@ class ElimActivity : AppCompatActivity() {
         if(bracketType == "pre"){
             prelimBracket()
         }
+
+        createBracket()
     }
 }

@@ -21,7 +21,7 @@ class ElimActivityAdapter(private val myDataset: MutableList<String>) :
                                     viewType: Int): ElimActivityAdapter.MyViewHolder {
         // create a new view
         val textView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_row, parent, false) as TextView
+            .inflate(R.layout.recyclerview_player, parent, false) as TextView
         // set the view's size, margins, paddings and layout parameters
 
         return MyViewHolder(textView)
