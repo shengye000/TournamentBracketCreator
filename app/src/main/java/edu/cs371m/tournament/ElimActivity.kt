@@ -92,8 +92,8 @@ class ElimActivity : AppCompatActivity() {
             }
         }
         create_button.setOnClickListener{
-            if(mutableList.size < 2){
-                Toast.makeText(this, "You must have 2 or more participants to create the bracket", Toast.LENGTH_LONG).show()
+            if(mutableList.size < 4){
+                Toast.makeText(this, "You must have 4 or more participants to create the bracket", Toast.LENGTH_LONG).show()
             }
             else{
                 bracketActivity()

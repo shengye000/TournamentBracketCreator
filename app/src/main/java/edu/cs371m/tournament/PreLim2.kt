@@ -31,19 +31,26 @@ class PreLim2 : AppCompatActivity(), Serializable{
         if(weighed){
             if(roundNumber == 1){
                previousRound.shuffle()
+                var i = 0
+                var j = 0
+                while (i < previousRound.size) {
+                    currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player))
+                    j++
+                    i += 2
+                }
             }
             else{
-                previousRound.sortedWith(compareBy({it.wins}))
+                var tempList = (previousRound).sortedWith(compareBy({it.wins}, {it.player}))
+                var i = 0
+                var j = 0
+                while (i < tempList.size) {
+                    currentRound.add(j, Game(tempList[i].player, tempList[i+1].player))
+                    j++
+                    i += 2
+                }
+                previousRound = ArrayList(tempList)
             }
 
-
-            var i = 0
-            var j = 0
-            while (i < previousRound.size) {
-                currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player))
-                j++
-                i += 2
-            }
         }
         else{
 

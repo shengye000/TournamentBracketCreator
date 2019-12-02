@@ -3,24 +3,9 @@ package edu.cs371m.tournament
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
-import edu.cs371m.tournament.HomeFragment
-import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var homeFragment: HomeFragment
-
-    private fun initHomeFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            // No back stack for home
-            .add(R.id.main_frame, homeFragment, "HomeFragment") //added tag
-            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .commit()
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
