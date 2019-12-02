@@ -88,7 +88,7 @@ class SingleElim : AppCompatActivity(){
         createRecyclerView()
     }
 
-    fun createRecyclerView(){
+    private fun createRecyclerView(){
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 

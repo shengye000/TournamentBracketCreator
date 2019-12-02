@@ -31,6 +31,12 @@
         <activity android:name=".PreLim2">
 
         </activity>
+        <activity android:name=".DoubleElim">
+
+        </activity>
+        <activity android:name=".DoubleElimGrandFinals">
+
+        </activity>
 
 
     </application>

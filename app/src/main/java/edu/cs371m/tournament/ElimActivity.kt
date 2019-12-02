@@ -78,6 +78,19 @@ class ElimActivity : AppCompatActivity() {
                 Toast.makeText(this, "This name is not currently in the list.", Toast.LENGTH_LONG).show()
             }
         }
+        add_all_button.setOnClickListener{
+            val text = userET2.text
+            if(text.isNullOrEmpty()){
+                Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
+            }
+            else{
+               for(i in 0.until(text.toString().toInt())){
+                   mutableList.add("Competitor " + (i+1).toString())
+                   userET2.text.clear()
+                   viewAdapter.notifyDataSetChanged()
+               }
+            }
+        }
         create_button.setOnClickListener{
             if(mutableList.size < 2){
                 Toast.makeText(this, "You must have 2 or more participants to create the bracket", Toast.LENGTH_LONG).show()
@@ -88,7 +101,7 @@ class ElimActivity : AppCompatActivity() {
         }
     }
 
-    fun bracketActivity(){
+    private fun bracketActivity(){
         if(bracketType == "s"){
             val intent = Intent(this, SingleElim::class.java)
             intent.putExtra("list", ArrayList(mutableList))
@@ -96,7 +109,12 @@ class ElimActivity : AppCompatActivity() {
             startActivity(intent)
         }
         if(bracketType == "d"){
-
+            val intent = Intent(this, DoubleElim::class.java)
+            val loserList = ArrayList<String>()
+            intent.putExtra("winner_list", ArrayList(mutableList))
+            intent.putExtra("loser_list", loserList)
+            intent.putExtra("round", 1)
+            startActivity(intent)
         }
         if(bracketType == "rr"){
 
