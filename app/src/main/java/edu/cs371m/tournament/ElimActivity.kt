@@ -85,7 +85,7 @@ class ElimActivity : AppCompatActivity() {
             }
             else{
                for(i in 0.until(text.toString().toInt())){
-                   mutableList.add("Competitor " + (i+1).toString())
+                   mutableList.add("P" + (i+1).toString())
                    userET2.text.clear()
                    viewAdapter.notifyDataSetChanged()
                }
@@ -117,7 +117,10 @@ class ElimActivity : AppCompatActivity() {
             startActivity(intent)
         }
         if(bracketType == "rr"){
-
+            val intent = Intent(this, RoundRobin::class.java)
+            intent.putExtra("list", ArrayList(mutableList))
+            intent.putExtra("round", 1)
+            startActivity(intent)
         }
         if(bracketType == "pre"){
             val intent = Intent(this, PreLim::class.java)

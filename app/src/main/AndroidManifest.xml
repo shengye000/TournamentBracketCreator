@@ -37,6 +37,9 @@
         <activity android:name=".DoubleElimGrandFinals">
 
         </activity>
+        <activity android:name=".RoundRobin">
+
+        </activity>
 
 
     </application>
