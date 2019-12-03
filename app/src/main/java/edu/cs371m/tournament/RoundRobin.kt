@@ -1,5 +1,6 @@
 package edu.cs371m.tournament
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,6 +14,7 @@ import kotlin.math.pow
 
 class RoundRobin : AppCompatActivity(){
     private var roundNumber = 0
+    private var totalMatches = 0
     private lateinit var previousRound : ArrayList<String>
     private lateinit var currentRound : ArrayList<RoundRobinGame>
     private lateinit var currentRoundCalc : ArrayList<RoundRobinData>
@@ -33,7 +35,11 @@ class RoundRobin : AppCompatActivity(){
                 }
             }
         }
+        //shuffle then have them in the right place in currentRoundCalc
         previousRound.shuffle()
+        for(k in 0.until(previousRound.size)){
+            currentRoundCalc.add(k, RoundRobinData(previousRound[k], 0))
+        }
 
         var i = 0
         var j = 0
@@ -50,8 +56,14 @@ class RoundRobin : AppCompatActivity(){
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         var adapter = RoundRobinAdapter(currentRound){
-            currentRoundCalc.add(it)
-            Log.d("next list", currentRoundCalc.toString())
+            for(i in 0.until(currentRoundCalc.size)){
+                if(currentRoundCalc[i].s1 == it){
+                    currentRoundCalc[i].num++
+                    totalMatches++
+                    break
+                }
+            }
+            //Log.d("next list", currentRoundCalc.toString())
         }
         rv.adapter = adapter
     }
@@ -76,19 +88,51 @@ class RoundRobin : AppCompatActivity(){
             }
         }
         next_button.setOnClickListener {
-            if((previousRound.size * 1.5).toInt() == currentRoundCalc.size){
-                //sort by number
-                var tempList = (currentRoundCalc).sortedWith(compareBy({it.position}, {it.s1}))
-                currentRoundCalc = ArrayList(tempList)
-                Log.d("debug", currentRoundCalc.toString())
-
-//                var j = 0
-//                while (j < currentRoundCalc.size) {
-//                    if(j % 6 == 0){
-//
-//                    }
-//                    j++
-//                }
+            if((previousRound.size * 1.5).toInt() == totalMatches){
+                //See if tiebreakers are needed.
+                var totalThree = 0
+                for(i in 0.until(currentRoundCalc.size)){
+                    if(currentRoundCalc[i].num == 3){
+                        totalThree++
+                    }
+                }
+                //need tiebreaker
+                if(currentRoundCalc.size / 4 > totalThree){
+                    val intent = Intent(this, RoundRobinTieBreaker::class.java)
+                    intent.putExtra("round", roundNumber)
+                    intent.putExtra("list", currentRoundCalc)
+                    startActivity(intent)
+                }
+                else{
+                    //last round so winner
+                    if(currentRoundCalc.size == 4){
+                        var winnerString = "null"
+                        for(i in 0.until(currentRoundCalc.size)){
+                            if(currentRoundCalc[i].num == 3){
+                                winnerString = currentRoundCalc[i].s1
+                                break
+                            }
+                        }
+                        val intent = Intent(this, Winner::class.java)
+                        intent.putExtra("winner", winnerString)
+                        startActivity(intent)
+                    }
+                    //need more rounds
+                    else{
+                        var i = 0
+                        while (i < currentRoundCalc.size) {
+                            if(currentRoundCalc[i].num == 3){
+                                nextRound.add(currentRoundCalc[i].s1)
+                            }
+                            i++
+                        }
+                        //Log.d("debug", nextRound.toString())
+                        val intent = Intent(this, RoundRobin::class.java)
+                        intent.putExtra("list", nextRound)
+                        intent.putExtra("round", roundNumber + 1)
+                        startActivity(intent)
+                    }
+                }
             }
             else{
                 Toast.makeText(this, "Not all rounds have been recorded", Toast.LENGTH_LONG).show()

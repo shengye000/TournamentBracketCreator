@@ -40,7 +40,9 @@
         <activity android:name=".RoundRobin">
 
         </activity>
+        <activity android:name=".RoundRobinTieBreaker">
 
+        </activity>
 
     </application>
 

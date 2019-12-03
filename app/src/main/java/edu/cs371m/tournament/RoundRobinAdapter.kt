@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
-class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (RoundRobinData) -> Unit): RecyclerView.Adapter<RoundRobinAdapter.ViewHolder>() {
+class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (String) -> Unit): RecyclerView.Adapter<RoundRobinAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.txtName1Top?.text = userList[position].p1
@@ -28,7 +28,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton12?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton21?.text = "L"
             holder?.txtButton21?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName1?.text.toString(), position))
+            listener(holder?.txtName1?.text.toString())
             holder?.txtButton12?.isClickable = false
             holder?.txtButton21?.isClickable = false
         }
@@ -37,7 +37,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton21?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton12?.text = "L"
             holder?.txtButton12?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName2?.text.toString(), position))
+            listener(holder?.txtName2?.text.toString())
             holder?.txtButton12?.isClickable = false
             holder?.txtButton21?.isClickable = false
         }
@@ -47,7 +47,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton13?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton31?.text = "L"
             holder?.txtButton31?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName1?.text.toString(), position))
+            listener(holder?.txtName1?.text.toString())
             holder?.txtButton13?.isClickable = false
             holder?.txtButton31?.isClickable = false
         }
@@ -56,7 +56,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton31?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton13?.text = "L"
             holder?.txtButton13?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName3?.text.toString(), position))
+            listener(holder?.txtName3?.text.toString())
             holder?.txtButton13?.isClickable = false
             holder?.txtButton31?.isClickable = false
         }
@@ -66,7 +66,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton14?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton41?.text = "L"
             holder?.txtButton41?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName1?.text.toString(), position))
+            listener(holder?.txtName1?.text.toString())
             holder?.txtButton14?.isClickable = false
             holder?.txtButton41?.isClickable = false
         }
@@ -75,7 +75,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton41?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton14?.text = "L"
             holder?.txtButton14?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName4?.text.toString(), position))
+            listener(holder?.txtName4?.text.toString())
             holder?.txtButton14?.isClickable = false
             holder?.txtButton41?.isClickable = false
         }
@@ -85,7 +85,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton23?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton32?.text = "L"
             holder?.txtButton32?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName2?.text.toString(), position))
+            listener(holder?.txtName2?.text.toString())
             holder?.txtButton23?.isClickable = false
             holder?.txtButton32?.isClickable = false
         }
@@ -94,7 +94,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton32?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton23?.text = "L"
             holder?.txtButton23?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName3?.text.toString(), position))
+            listener(holder?.txtName3?.text.toString())
             holder?.txtButton23?.isClickable = false
             holder?.txtButton32?.isClickable = false
         }
@@ -104,7 +104,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton24?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton42?.text = "L"
             holder?.txtButton42?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName2?.text.toString(), position))
+            listener(holder?.txtName2?.text.toString())
             holder?.txtButton24?.isClickable = false
             holder?.txtButton42?.isClickable = false
         }
@@ -113,7 +113,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton42?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton24?.text = "L"
             holder?.txtButton24?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName4?.text.toString(), position))
+            listener(holder?.txtName4?.text.toString())
             holder?.txtButton24?.isClickable = false
             holder?.txtButton42?.isClickable = false
         }
@@ -123,7 +123,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton34?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton43?.text = "L"
             holder?.txtButton43?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName3?.text.toString(), position))
+            listener(holder?.txtName3?.text.toString())
             holder?.txtButton34?.isClickable = false
             holder?.txtButton43?.isClickable = false
         }
@@ -132,7 +132,7 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
             holder?.txtButton43?.setBackgroundResource(R.drawable.buttonwinner)
             holder?.txtButton34?.text = "L"
             holder?.txtButton34?.setBackgroundResource(R.drawable.buttonloser)
-            listener(RoundRobinData(holder?.txtName4?.text.toString(), position))
+            listener(holder?.txtName4?.text.toString())
             holder?.txtButton34?.isClickable = false
             holder?.txtButton43?.isClickable = false
         }
