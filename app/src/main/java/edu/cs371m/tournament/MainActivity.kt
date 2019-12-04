@@ -6,7 +6,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    //Challonge API key:R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         pre_elim_button.setOnClickListener {
             val intent = Intent(this, ElimActivity::class.java)
             intent.putExtra("type", "pre")
+            startActivity(intent)
+        }
+        challonge_button.setOnClickListener {
+            val intent = Intent(this, Challonge::class.java)
             startActivity(intent)
         }
     }

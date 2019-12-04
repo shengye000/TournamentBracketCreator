@@ -121,8 +121,23 @@ wins will face off in a single elimination bracket until one player is crowned t
                     />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:text="OR Import Participants From:"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="challonge.com"
+                android:id="@+id/challonge_button"
+                android:background="@color/olive"
+                />
 
         </LinearLayout>
+
 
 
     </FrameLayout>

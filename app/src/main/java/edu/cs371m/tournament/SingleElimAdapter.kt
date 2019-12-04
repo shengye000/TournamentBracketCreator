@@ -1,6 +1,7 @@
 package edu.cs371m.tournament
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,20 +19,20 @@ class SingleElimAdapter(val userList: ArrayList<Game>, val listener: (String) ->
         holder?.number?.text = (position + 1).toString()
 
         holder?.txtButton1?.setOnClickListener {
+            listener(holder?.txtName1?.text.toString())
             holder?.txtButton1?.text = "W"
             holder?.txtButton1?.setBackgroundColor(Color.GREEN)
             holder?.txtButton2?.text = "L"
             holder?.txtButton2?.setBackgroundColor(Color.RED)
-            listener(holder?.txtName1?.text.toString())
             holder?.txtButton1?.isClickable = false
             holder?.txtButton2?.isClickable = false
         }
         holder?.txtButton2?.setOnClickListener{
+            listener(holder?.txtName2?.text.toString())
             holder?.txtButton2?.text = "W"
             holder?.txtButton2?.setBackgroundColor(Color.GREEN)
             holder?.txtButton1?.text = "L"
             holder?.txtButton1?.setBackgroundColor(Color.RED)
-            listener(holder?.txtName2?.text.toString())
             holder?.txtButton1?.isClickable = false
             holder?.txtButton2?.isClickable = false
         }
