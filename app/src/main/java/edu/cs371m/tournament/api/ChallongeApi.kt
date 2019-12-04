@@ -16,8 +16,6 @@ interface ChallongeApi{
     @GET("/v1/tournaments/7xpcu8am/participants.json")
     suspend fun getChallongeResponse() : List<ChallongeInfo>
 
-    //data class ChallongeResponse(val participant: List<ChallongeInfo>)
-
     companion object {
         var httpurl = HttpUrl.Builder()
             //before stuff: CapK:R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts@

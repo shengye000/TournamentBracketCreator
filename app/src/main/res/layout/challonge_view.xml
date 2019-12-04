@@ -5,9 +5,57 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/challonge_test"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Here is the list of competitors extracted from challonge.com:"
+        android:textSize="20sp"
+        android:gravity="center"
+        />
 
-    </TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewChallonge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/single_button"
+        android:text="Single Elimination"
+        android:background="@color/aqua"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/double_button"
+        android:text="Double Elimination"
+        android:background="@color/fuchsia"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/rr_button"
+        android:text="Round Robin"
+        android:background="@color/yellow"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/prelim_button"
+        android:text="Pre Elimination + Single"
+        android:background="@color/lime"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/cancel_button"
+        android:text="cancel"
+        android:background="@color/red"
+    />
 </LinearLayout>
