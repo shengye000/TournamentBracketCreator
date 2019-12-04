@@ -97,7 +97,6 @@ class SingleElim : AppCompatActivity(){
             Log.d("next list", nextRound.toString())
         }
         rv.adapter = adapter
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

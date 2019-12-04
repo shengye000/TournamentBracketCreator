@@ -47,7 +47,9 @@
         <activity android:name=".Challonge">
 
         </activity>
+        <activity android:name=".Tournament">
 
+        </activity>
     </application>
 
 </manifest>

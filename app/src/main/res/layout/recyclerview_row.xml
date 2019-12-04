@@ -34,6 +34,7 @@
                 android:layout_weight="5"
                 android:textSize="30sp"
                 android:id="@+id/player_1"
+                android:scrollbars="horizontal"
                 />
             <Button
                 android:layout_width="0dp"
@@ -56,6 +57,7 @@
                 android:layout_weight="5"
                 android:textSize="30sp"
                 android:id="@+id/player_2"
+                android:scrollbars="horizontal"
                 />
             <Button
                 android:layout_width="0dp"

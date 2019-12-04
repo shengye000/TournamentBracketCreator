@@ -1,20 +1,21 @@
 package edu.cs371m.tournament.api
 
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import android.R.attr.password
-import edu.cs371m.tournament.BuildConfig
 import okhttp3.*
-import retrofit2.Call
-import retrofit2.Response
-import java.io.IOException
+import retrofit2.http.Path
 
 
 interface ChallongeApi{
-    @GET("/v1/tournaments/7xpcu8am/participants.json")
-    suspend fun getChallongeResponse() : List<ChallongeInfo>
+
+    //Tournament 1: 7xpcu8am
+    //TOurnament 2: 70wz88hu
+    @GET("/v1/tournaments/{url}/participants.json")
+    suspend fun getChallongeResponse(@Path("url") url : String) : List<ChallongeInfo>
+
+    @GET("/v1/tournaments.json")
+    suspend fun getTournamentResponse() : List<TournamentInfo>
 
     companion object {
         var httpurl = HttpUrl.Builder()
