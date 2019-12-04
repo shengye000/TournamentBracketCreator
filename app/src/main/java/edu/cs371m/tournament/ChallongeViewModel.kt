@@ -27,7 +27,6 @@ class ChallongeViewModel : ViewModel(){
         viewModelScope.launch(
             context = viewModelScope.coroutineContext
                     + Dispatchers.IO){
-
             challongeInfo.postValue(challongeRepo.getChallonge())
         }
     }

@@ -17,7 +17,7 @@ class Challonge : AppCompatActivity(){
 
         viewModel = ViewModelProviders.of(this)[ChallongeViewModel::class.java]
         viewModel.observeChallongeInfo().observe(this, Observer{
-            challonge_test.text = it[0].name1
+            challonge_test.text = it.toString()
         })
         viewModel.netRefresh()
     }
