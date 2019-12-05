@@ -21,6 +21,7 @@ class RoundRobin : AppCompatActivity(){
     private lateinit var nextRound : ArrayList<String>
 
     private fun makeBracket(){
+        previousRound.shuffle()
         if(roundNumber == 1){
             //add BYEs to score
             val N = log(previousRound.size.toDouble(), 4.0)
@@ -36,7 +37,6 @@ class RoundRobin : AppCompatActivity(){
             }
         }
         //shuffle then have them in the right place in currentRoundCalc
-        previousRound.shuffle()
         for(k in 0.until(previousRound.size)){
             currentRoundCalc.add(k, RoundRobinData(previousRound[k], 0))
         }

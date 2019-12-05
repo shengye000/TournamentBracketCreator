@@ -34,7 +34,7 @@ class PreLim2 : AppCompatActivity(), Serializable{
                 var i = 0
                 var j = 0
                 while (i < previousRound.size) {
-                    currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player))
+                    currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player, ""))
                     j++
                     i += 2
                 }
@@ -44,7 +44,7 @@ class PreLim2 : AppCompatActivity(), Serializable{
                 var i = 0
                 var j = 0
                 while (i < tempList.size) {
-                    currentRound.add(j, Game(tempList[i].player, tempList[i+1].player))
+                    currentRound.add(j, Game(tempList[i].player, tempList[i+1].player, ""))
                     j++
                     i += 2
                 }
@@ -59,7 +59,7 @@ class PreLim2 : AppCompatActivity(), Serializable{
             var i = 0
             var j = 0
             while (i < previousRound.size) {
-                currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player))
+                currentRound.add(j, Game(previousRound[i].player, previousRound[i+1].player, ""))
                 j++
                 i += 2
             }
@@ -71,10 +71,7 @@ class PreLim2 : AppCompatActivity(), Serializable{
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(currentRound){
-            listOfWinners.add(it)
-            Log.d("next list", listOfWinners.toString())
-        }
+        var adapter = SingleElimAdapter(currentRound)
         rv.adapter = adapter
 
     }

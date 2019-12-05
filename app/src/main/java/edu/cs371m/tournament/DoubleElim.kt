@@ -48,7 +48,7 @@ class DoubleElim : AppCompatActivity(){
                 var i = 0
                 var j = 0
                 while (i < previousRoundWinner.size) {
-                    currentRoundWinner.add(j, Game(previousRoundWinner[i], previousRoundWinner[i+1]))
+                    currentRoundWinner.add(j, Game(previousRoundWinner[i], previousRoundWinner[i+1], ""))
                     j++
                     i += 2
                 }
@@ -64,7 +64,7 @@ class DoubleElim : AppCompatActivity(){
                     var i = 0
                     var j = 0
                     while (i < previousRoundWinner.size) {
-                        currentRoundWinner.add(j, Game(previousRoundWinner[i], previousRoundWinner[i+1]))
+                        currentRoundWinner.add(j, Game(previousRoundWinner[i], previousRoundWinner[i+1], ""))
                         j++
                         i += 2
                     }
@@ -74,7 +74,7 @@ class DoubleElim : AppCompatActivity(){
                 var i2 = 0
                 var j2 = 0
                 while(i2 < previousRoundLoser.size) {
-                    currentRoundLoser.add(j2, Game(previousRoundLoser[i2], previousRoundLoser[i2+1]))
+                    currentRoundLoser.add(j2, Game(previousRoundLoser[i2], previousRoundLoser[i2+1], ""))
                     j2++
                     i2 += 2
                 }
@@ -89,10 +89,7 @@ class DoubleElim : AppCompatActivity(){
             val rv = findViewById<RecyclerView>(R.id.recyclerViewBracketWinner)
             rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter = SingleElimAdapter(currentRoundWinner){
-                nextRoundWinner.add(it)
-                Log.d("next winner list", nextRoundWinner.toString())
-            }
+            var adapter = SingleElimAdapter(currentRoundWinner)
             rv.adapter = adapter
         }
 
@@ -101,10 +98,7 @@ class DoubleElim : AppCompatActivity(){
             val rvLoser = findViewById<RecyclerView>(R.id.recyclerViewBracketLoser)
             rvLoser.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter2 = SingleElimAdapter(currentRoundLoser) {
-                nextRoundLoser.add(it)
-                Log.d("next loser list", nextRoundLoser.toString())
-            }
+            var adapter2 = SingleElimAdapter(currentRoundLoser)
             rvLoser.adapter = adapter2
         }
 

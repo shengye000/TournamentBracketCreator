@@ -2,18 +2,14 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_view.*
 import kotlin.math.log2
 import kotlin.math.pow
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 
 class SingleElim : AppCompatActivity(){
@@ -36,7 +32,7 @@ class SingleElim : AppCompatActivity(){
                 var i = 0
                 var j = 0
                 while (i < previousRound.size) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1]))
+                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
                     j++
                     i += 2
                 }
@@ -47,7 +43,7 @@ class SingleElim : AppCompatActivity(){
                 var i = 0
                 var j = 0
                 while ( j < remainder.toInt()) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1]))
+                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
                     j++
                     i += 2
                 }
@@ -66,7 +62,7 @@ class SingleElim : AppCompatActivity(){
                 var i = 0
                 var j = 0
                 while (i < previousRound.size) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1]))
+                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
                     j++
                     i += 2
                 }
@@ -78,7 +74,7 @@ class SingleElim : AppCompatActivity(){
             var i = 0
             var j = 0
             while (i < previousRound.size) {
-                currentRound.add(j, Game(previousRound[i], previousRound[i+1]))
+                currentRound.add(j, Game(previousRound[i], previousRound[i+1],""))
                 j++
                 i += 2
             }
@@ -92,10 +88,7 @@ class SingleElim : AppCompatActivity(){
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(currentRound){
-            nextRound.add(it)
-            Log.d("next list", nextRound.toString())
-        }
+        var adapter = SingleElimAdapter(currentRound)
         rv.adapter = adapter
     }
 
@@ -118,17 +111,22 @@ class SingleElim : AppCompatActivity(){
             super.onBackPressed()
         }
         next_button.setOnClickListener{
-            val N = log2(previousRound.size.toDouble()).toInt()
-            var neededListLength = (2.toDouble().pow(N) / 2).toInt()
-            val remainder = previousRound.size - 2.toDouble().pow(N).toInt()
-
-            if(roundNumber == 1 && remainder != 0 && remainder / 2.toDouble().pow(N) <= 0.5){
-                neededListLength = remainder
+            var allRecorded = true
+            for(i in 0.until(currentRound.size)){
+                if(currentRound[i].winner == ""){
+                    allRecorded = false
+                }
             }
-            Log.d("calc", "remainder: " + remainder.toString() + "neededListLength: " + neededListLength.toString())
-            if(nextRound.size == previousRound.size - neededListLength){
+            if(!allRecorded){
+                Toast.makeText(this, "Not all round have been recorded!", Toast.LENGTH_LONG).show()
+            }
+            else{
+                for(j in 0.until(currentRound.size)){
+                    nextRound.add(currentRound[j].winner)
+                }
+
                 //winner
-                if(neededListLength == 1 && nextRound.size == 1){
+                if(nextRound.size == 1){
                     val intent = Intent(this, Winner::class.java)
                     intent.putExtra("winner", nextRound[0])
                     startActivity(intent)
@@ -139,9 +137,6 @@ class SingleElim : AppCompatActivity(){
                     intent.putExtra("round", roundNumber + 1)
                     startActivity(intent)
                 }
-            }
-            else{
-                Toast.makeText(this, "Not all rounds have been recorded yet.", Toast.LENGTH_LONG).show()
             }
         }
         createOpponents()
