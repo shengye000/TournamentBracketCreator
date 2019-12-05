@@ -44,7 +44,11 @@ class RoundRobin : AppCompatActivity(){
         var i = 0
         var j = 0
         while (i < previousRound.size) {
-            currentRound.add(j, RoundRobinGame(previousRound[i], previousRound[i+1], previousRound[i+2], previousRound[i+3]))
+            currentRound.add(j, RoundRobinGame(false,
+                previousRound[i], -1, -1, -1,
+                previousRound[i+1], -1, -1, -1,
+                previousRound[i+2],-1, -1, -1,
+                previousRound[i+3], -1, -1, -1))
             j++
             i += 4
         }
@@ -55,16 +59,7 @@ class RoundRobin : AppCompatActivity(){
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = RoundRobinAdapter(currentRound){
-            for(i in 0.until(currentRoundCalc.size)){
-                if(currentRoundCalc[i].s1 == it){
-                    currentRoundCalc[i].num++
-                    totalMatches++
-                    break
-                }
-            }
-            //Log.d("next list", currentRoundCalc.toString())
-        }
+        var adapter = RoundRobinAdapter(currentRound)
         rv.adapter = adapter
     }
 
@@ -85,7 +80,37 @@ class RoundRobin : AppCompatActivity(){
             startActivity(intent)
         }
         next_button.setOnClickListener {
-            if((previousRound.size * 1.5).toInt() == totalMatches){
+            //see if -1 still exist
+            var canContinue = true
+            for(i in 0.until(currentRound.size)){
+                if(currentRound[i].p12 == -1 || currentRound[i].p13 == -1 || currentRound[i].p14 == -1
+                    || currentRound[i].p21 == -1 || currentRound[i].p23 == -1 || currentRound[i].p24 == -1
+                    || currentRound[i].p31 == -1 || currentRound[i].p32 == -1 || currentRound[i].p34 == -1
+                    || currentRound[i].p41 == -1 || currentRound[i].p42 == -1 || currentRound[i].p43 == -1){
+                    canContinue = false
+                    break
+                }
+            }
+            //Can go forward
+            if(canContinue){
+                //Add all currentRoundCalcs together. So slow.
+                for(i in 0.until(currentRound.size)){
+                    for(j in 0.until(currentRoundCalc.size)){
+                        if(currentRound[i].p1 == currentRoundCalc[j].s1){
+                            currentRoundCalc[j].num = currentRound[i].p12 + currentRound[i].p13 + currentRound[i].p14
+                        }
+                        if(currentRound[i].p2 == currentRoundCalc[j].s1){
+                            currentRoundCalc[j].num = currentRound[i].p21 + currentRound[i].p23 + currentRound[i].p24
+                        }
+                        if(currentRound[i].p3 == currentRoundCalc[j].s1){
+                            currentRoundCalc[j].num = currentRound[i].p31 + currentRound[i].p32 + currentRound[i].p34
+                        }
+                        if(currentRound[i].p4 == currentRoundCalc[j].s1){
+                            currentRoundCalc[j].num = currentRound[i].p41 + currentRound[i].p42 + currentRound[i].p43
+                        }
+                    }
+                }
+
                 //See if tiebreakers are needed.
                 var totalThree = 0
                 for(i in 0.until(currentRoundCalc.size)){

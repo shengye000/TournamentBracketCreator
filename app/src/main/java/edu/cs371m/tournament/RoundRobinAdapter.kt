@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
-class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (String) -> Unit): RecyclerView.Adapter<RoundRobinAdapter.ViewHolder>() {
+class RoundRobinAdapter(private val userList: ArrayList<RoundRobinGame>): RecyclerView.Adapter<RoundRobinAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.txtName1Top?.text = userList[position].p1
@@ -23,118 +23,302 @@ class RoundRobinAdapter(val userList: ArrayList<RoundRobinGame>, val listener: (
 
         holder?.number?.text = "Bracket #" + (position + 1).toString()
 
-        holder?.txtButton12?.setOnClickListener {
-            holder?.txtButton12?.text = "W"
-            holder?.txtButton12?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton21?.text = "L"
-            holder?.txtButton21?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName1?.text.toString())
-            holder?.txtButton12?.isClickable = false
-            holder?.txtButton21?.isClickable = false
+        if(holder.adapterPosition == position && userList[position].edited){
+            if(userList[position].p12 == 0){
+                holder.txtButton12.text = "L"
+                holder.txtButton12.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p12 == 1){
+                holder.txtButton12.text = "W"
+                holder.txtButton12.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p12 == -1){
+                holder.txtButton12.text = ""
+                holder.txtButton12.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p13 == 0){
+                holder.txtButton13.text = "L"
+                holder.txtButton13.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p13 == 1){
+                holder.txtButton13.text = "W"
+                holder.txtButton13.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p13 == -1){
+                holder.txtButton13.text = ""
+                holder.txtButton13.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p14 == 0){
+                holder.txtButton14.text = "L"
+                holder.txtButton14.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p14 == 1){
+                holder.txtButton14.text = "W"
+                holder.txtButton14.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p14 == -1){
+                holder.txtButton14.text = ""
+                holder.txtButton14.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p21 == 0){
+                holder.txtButton21.text = "L"
+                holder.txtButton21.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p21 == 1){
+                holder.txtButton21.text = "W"
+                holder.txtButton21.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p21 == -1){
+                holder.txtButton21.text = ""
+                holder.txtButton21.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p23 == 0){
+                holder.txtButton23.text = "L"
+                holder.txtButton23.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p23 == 1){
+                holder.txtButton23.text = "W"
+                holder.txtButton23.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p23 == -1){
+                holder.txtButton23.text = ""
+                holder.txtButton23.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p24 == 0){
+                holder.txtButton24.text = "L"
+                holder.txtButton24.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p24 == 1){
+                holder.txtButton24.text = "W"
+                holder.txtButton24.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p24 == -1){
+                holder.txtButton24.text = ""
+                holder.txtButton24.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+
+            if(userList[position].p31 == 0){
+                holder.txtButton31.text = "L"
+                holder.txtButton31.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p31 == 1){
+                holder.txtButton31.text = "W"
+                holder.txtButton31.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p31 == -1){
+                holder.txtButton31.text = ""
+                holder.txtButton31.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p32 == 0){
+                holder.txtButton32.text = "L"
+                holder.txtButton32.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p32 == 1){
+                holder.txtButton32.text = "W"
+                holder.txtButton32.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p32 == -1){
+                holder.txtButton32.text = ""
+                holder.txtButton32.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p34 == 0){
+                holder.txtButton34.text = "L"
+                holder.txtButton34.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p34 == 1){
+                holder.txtButton34.text = "W"
+                holder.txtButton34.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p34 == -1){
+                holder.txtButton34.text = ""
+                holder.txtButton34.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p41 == 0){
+                holder.txtButton41.text = "L"
+                holder.txtButton41.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p41 == 1){
+                holder.txtButton41.text = "W"
+                holder.txtButton41.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p41 == -1){
+                holder.txtButton41.text = ""
+                holder.txtButton41.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p42 == 0){
+                holder.txtButton42.text = "L"
+                holder.txtButton42.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p42 == 1){
+                holder.txtButton42.text = "W"
+                holder.txtButton42.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p42 == -1){
+                holder.txtButton42.text = ""
+                holder.txtButton42.setBackgroundResource(R.drawable.buttonneutral)
+            }
+
+            if(userList[position].p43 == 0){
+                holder.txtButton43.text = "L"
+                holder.txtButton43.setBackgroundResource(R.drawable.buttonloser)
+            }
+            if(userList[position].p43 == 1){
+                holder.txtButton43.text = "W"
+                holder.txtButton43.setBackgroundResource(R.drawable.buttonwinner)
+            }
+            if(userList[position].p43 == -1){
+                holder.txtButton43.text = ""
+                holder.txtButton43.setBackgroundResource(R.drawable.buttonneutral)
+            }
         }
-        holder?.txtButton21?.setOnClickListener{
-            holder?.txtButton21?.text = "W"
-            holder?.txtButton21?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton12?.text = "L"
-            holder?.txtButton12?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName2?.text.toString())
-            holder?.txtButton12?.isClickable = false
-            holder?.txtButton21?.isClickable = false
+        else{
+            holder.txtButton12.text = ""
+            holder.txtButton12.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton13.text = ""
+            holder.txtButton13.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton14.text = ""
+            holder.txtButton14.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton21.text = ""
+            holder.txtButton21.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton23.text = ""
+            holder.txtButton23.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton24.text = ""
+            holder.txtButton24.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton31.text = ""
+            holder.txtButton31.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton32.text = ""
+            holder.txtButton32.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton34.text = ""
+            holder.txtButton34.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton41.text = ""
+            holder.txtButton41.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton42.text = ""
+            holder.txtButton42.setBackgroundResource(R.drawable.buttonneutral)
+            holder.txtButton43.text = ""
+            holder.txtButton43.setBackgroundResource(R.drawable.buttonneutral)
         }
 
-        holder?.txtButton13?.setOnClickListener {
-            holder?.txtButton13?.text = "W"
-            holder?.txtButton13?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton31?.text = "L"
-            holder?.txtButton31?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName1?.text.toString())
-            holder?.txtButton13?.isClickable = false
-            holder?.txtButton31?.isClickable = false
+        //Click Listeners
+        holder.txtButton12.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p12 = 1
+            userList[position].p21 = 0
+            holder.txtButton12.text = "W"
+            holder.txtButton12.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton21.text = "L"
+            holder.txtButton21.setBackgroundResource(R.drawable.buttonloser)
         }
-        holder?.txtButton31?.setOnClickListener{
-            holder?.txtButton31?.text = "W"
-            holder?.txtButton31?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton13?.text = "L"
-            holder?.txtButton13?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName3?.text.toString())
-            holder?.txtButton13?.isClickable = false
-            holder?.txtButton31?.isClickable = false
+        holder.txtButton13.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p13 = 1
+            userList[position].p31 = 0
+            holder.txtButton13.text = "W"
+            holder.txtButton13.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton31.text = "L"
+            holder.txtButton31.setBackgroundResource(R.drawable.buttonloser)
         }
-
-        holder?.txtButton14?.setOnClickListener {
-            holder?.txtButton14?.text = "W"
-            holder?.txtButton14?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton41?.text = "L"
-            holder?.txtButton41?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName1?.text.toString())
-            holder?.txtButton14?.isClickable = false
-            holder?.txtButton41?.isClickable = false
-        }
-        holder?.txtButton41?.setOnClickListener{
-            holder?.txtButton41?.text = "W"
-            holder?.txtButton41?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton14?.text = "L"
-            holder?.txtButton14?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName4?.text.toString())
-            holder?.txtButton14?.isClickable = false
-            holder?.txtButton41?.isClickable = false
+        holder.txtButton14.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p14 = 1
+            userList[position].p41 = 0
+            holder.txtButton14.text = "W"
+            holder.txtButton14.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton41.text = "L"
+            holder.txtButton41.setBackgroundResource(R.drawable.buttonloser)
         }
 
-        holder?.txtButton23?.setOnClickListener {
-            holder?.txtButton23?.text = "W"
-            holder?.txtButton23?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton32?.text = "L"
-            holder?.txtButton32?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName2?.text.toString())
-            holder?.txtButton23?.isClickable = false
-            holder?.txtButton32?.isClickable = false
+        holder.txtButton21.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p21 = 1
+            userList[position].p12 = 0
+            holder.txtButton21.text = "W"
+            holder.txtButton21.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton12.text = "L"
+            holder.txtButton12.setBackgroundResource(R.drawable.buttonloser)
         }
-        holder?.txtButton32?.setOnClickListener{
-            holder?.txtButton32?.text = "W"
-            holder?.txtButton32?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton23?.text = "L"
-            holder?.txtButton23?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName3?.text.toString())
-            holder?.txtButton23?.isClickable = false
-            holder?.txtButton32?.isClickable = false
+        holder.txtButton23.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p23 = 1
+            userList[position].p32 = 0
+            holder.txtButton23.text = "W"
+            holder.txtButton23.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton32.text = "L"
+            holder.txtButton32.setBackgroundResource(R.drawable.buttonloser)
         }
-
-        holder?.txtButton24?.setOnClickListener {
-            holder?.txtButton24?.text = "W"
-            holder?.txtButton24?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton42?.text = "L"
-            holder?.txtButton42?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName2?.text.toString())
-            holder?.txtButton24?.isClickable = false
-            holder?.txtButton42?.isClickable = false
-        }
-        holder?.txtButton42?.setOnClickListener{
-            holder?.txtButton42?.text = "W"
-            holder?.txtButton42?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton24?.text = "L"
-            holder?.txtButton24?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName4?.text.toString())
-            holder?.txtButton24?.isClickable = false
-            holder?.txtButton42?.isClickable = false
+        holder.txtButton24.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p24 = 1
+            userList[position].p42 = 0
+            holder.txtButton24.text = "W"
+            holder.txtButton24.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton42.text = "L"
+            holder.txtButton42.setBackgroundResource(R.drawable.buttonloser)
         }
 
-        holder?.txtButton34?.setOnClickListener {
-            holder?.txtButton34?.text = "W"
-            holder?.txtButton34?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton43?.text = "L"
-            holder?.txtButton43?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName3?.text.toString())
-            holder?.txtButton34?.isClickable = false
-            holder?.txtButton43?.isClickable = false
+        holder.txtButton31.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p31 = 1
+            userList[position].p13 = 0
+            holder.txtButton31.text = "W"
+            holder.txtButton31.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton13.text = "L"
+            holder.txtButton13.setBackgroundResource(R.drawable.buttonloser)
         }
-        holder?.txtButton43?.setOnClickListener{
-            holder?.txtButton43?.text = "W"
-            holder?.txtButton43?.setBackgroundResource(R.drawable.buttonwinner)
-            holder?.txtButton34?.text = "L"
-            holder?.txtButton34?.setBackgroundResource(R.drawable.buttonloser)
-            listener(holder?.txtName4?.text.toString())
-            holder?.txtButton34?.isClickable = false
-            holder?.txtButton43?.isClickable = false
+        holder.txtButton32.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p32 = 1
+            userList[position].p23 = 0
+            holder.txtButton32.text = "W"
+            holder.txtButton32.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton23.text = "L"
+            holder.txtButton23.setBackgroundResource(R.drawable.buttonloser)
+        }
+        holder.txtButton34.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p34 = 1
+            userList[position].p43 = 0
+            holder.txtButton34.text = "W"
+            holder.txtButton34.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton43.text = "L"
+            holder.txtButton43.setBackgroundResource(R.drawable.buttonloser)
+        }
+
+        holder.txtButton41.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p41 = 1
+            userList[position].p14 = 0
+            holder.txtButton41.text = "W"
+            holder.txtButton41.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton14.text = "L"
+            holder.txtButton14.setBackgroundResource(R.drawable.buttonloser)
+        }
+        holder.txtButton42.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p42 = 1
+            userList[position].p24 = 0
+            holder.txtButton42.text = "W"
+            holder.txtButton42.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton24.text = "L"
+            holder.txtButton24.setBackgroundResource(R.drawable.buttonloser)
+        }
+        holder.txtButton43.setOnClickListener {
+            userList[position].edited = true
+            userList[position].p43 = 1
+            userList[position].p34 = 0
+            holder.txtButton43.text = "W"
+            holder.txtButton43.setBackgroundResource(R.drawable.buttonwinner)
+            holder.txtButton34.text = "L"
+            holder.txtButton34.setBackgroundResource(R.drawable.buttonloser)
         }
     }
 
