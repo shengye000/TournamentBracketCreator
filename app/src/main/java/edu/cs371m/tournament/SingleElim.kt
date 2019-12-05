@@ -2,6 +2,7 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,6 +66,7 @@ class SingleElim : AppCompatActivity(){
                     j++
                     i += 2
                 }
+
             }
 
 
@@ -78,7 +80,16 @@ class SingleElim : AppCompatActivity(){
                 i += 2
             }
         }
-
+        for(i in 0.until(currentRound.size)){
+            if (currentRound[i].name1.length >= 3 && currentRound[i].name1.subSequence(0, 3) == "BYE") {
+                Log.d("debug", "inside 1")
+                currentRound[i].winner = currentRound[i].name2
+            }
+            if (currentRound[i].name2.length >=3 && currentRound[i].name2.subSequence(0, 3) == "BYE") {
+                Log.d("debug", "inside 2")
+                currentRound[i].winner = currentRound[i].name1
+            }
+        }
         //Make the recyclerView Here
         createRecyclerView()
     }

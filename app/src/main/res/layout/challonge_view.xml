@@ -6,18 +6,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="Here is the list of competitors extracted from challonge.com:"
+        android:layout_weight="1"
+        android:text="Competitors extracted from challonge:"
         android:textSize="20sp"
         android:gravity="center"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:id="@+id/edit_but"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/add_but"
+            android:text="add"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/del_but"
+            android:text="Delete"
+            />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChallonge"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
+        android:background="@drawable/customborder"
         />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"

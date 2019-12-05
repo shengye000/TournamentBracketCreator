@@ -44,6 +44,7 @@ class DoubleElim : AppCompatActivity(){
                     }
                 }
 
+
                 Log.d("debug2", previousRoundWinner.size.toString())
                 previousRoundWinner.shuffle()
 
@@ -82,6 +83,24 @@ class DoubleElim : AppCompatActivity(){
                     i2 += 2
                 }
             }
+        }
+
+        //auto win for BYEs
+        for(i in 0.until(currentRoundWinner.size)){
+                if (currentRoundWinner[i].name1.length >= 3 && currentRoundWinner[i].name1.subSequence(0, 3) == "BYE") {
+                    currentRoundWinner[i].winner = currentRoundWinner[i].name2
+                }
+                if (currentRoundWinner[i].name2.length >= 3 && currentRoundWinner[i].name2.subSequence(0, 3) == "BYE") {
+                    currentRoundWinner[i].winner = currentRoundWinner[i].name1
+                }
+        }
+        for(i in 0.until(currentRoundLoser.size)){
+                if (currentRoundLoser[i].name1.length >= 3 && currentRoundLoser[i].name1.subSequence(0, 3) == "BYE") {
+                    currentRoundLoser[i].winner = currentRoundLoser[i].name2
+                }
+                if (currentRoundLoser[i].name2.length >= 3 && currentRoundLoser[i].name2.subSequence(0, 3) == "BYE") {
+                    currentRoundLoser[i].winner = currentRoundLoser[i].name1
+                }
         }
         createRecyclerView()
     }

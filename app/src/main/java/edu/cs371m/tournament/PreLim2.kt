@@ -64,6 +64,15 @@ class PreLim2 : AppCompatActivity(), Serializable{
                 i += 2
             }
         }
+        for(i in 0.until(currentRound.size)){
+            if (currentRound[i].name1.length >= 3 && currentRound[i].name1.subSequence(0, 3) == "BYE") {
+                currentRound[i].winner = currentRound[i].name2
+            }
+            if (currentRound[i].name2.length >=3 && currentRound[i].name2.subSequence(0, 3) == "BYE") {
+                currentRound[i].winner = currentRound[i].name1
+            }
+        }
+
         createRecyclerView()
     }
 

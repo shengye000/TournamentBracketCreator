@@ -47,6 +47,35 @@ class Challonge : AppCompatActivity(){
                     adapter = viewAdapter
                 }
 
+                add_but.setOnClickListener {
+                    val text = edit_but.text
+                    if(text.isEmpty()){
+                        Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
+                    }
+                    else if(currentList.contains(text.toString())){
+                        Toast.makeText(this, "This name has already been taken. Please select another.", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        currentList.add(text.toString())
+                        edit_but.text.clear()
+                        viewAdapter.notifyDataSetChanged()
+                    }
+                }
+                del_but.setOnClickListener {
+                    val text = edit_but.text
+                    if(text.isEmpty()){
+                        Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
+                    }
+
+                    if(currentList.contains(text.toString())){
+                        currentList.remove(text.toString())
+                        edit_but.text.clear()
+                        viewAdapter.notifyDataSetChanged()
+                    }
+                    else{
+                        Toast.makeText(this, "This name is not currently in the list.", Toast.LENGTH_LONG).show()
+                    }
+                }
                 single_button.setOnClickListener {
                     val intent = Intent(this, SingleElim::class.java)
                     intent.putExtra("list", ArrayList(currentList))
