@@ -137,7 +137,9 @@ class DoubleElim : AppCompatActivity(){
             if(roundNumber == 1){
                 Toast.makeText(this, "This is the first Round!", Toast.LENGTH_LONG).show()
             }
-            super.onBackPressed()
+            else{
+                super.onBackPressed()
+            }
         }
         next_button.setOnClickListener{
             if(roundNumber == 1){

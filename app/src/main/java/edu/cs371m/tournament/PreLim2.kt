@@ -107,15 +107,16 @@ class PreLim2 : AppCompatActivity(), Serializable{
         }
         next_button.setOnClickListener{
             //Go to single elimination with the correct number of wins
-            if(roundNumber == totalRounds && previousRound.size /2 == listOfWinners.size){
-                Toast.makeText(this, "Single Elimination Starting", Toast.LENGTH_LONG).show()
+            if(roundNumber == totalRounds){
 
                 //Update List
                 nextRound = previousRound
-                for(i in 0.until(nextRound.size)){
-                    val player = nextRound[i].player
-                    if(listOfWinners.contains(player)){
-                        nextRound[i].wins++
+                for(i in 0.until(currentRound.size)){
+                    for(j in 0.until(nextRound.size)){
+                        if(currentRound[i].winner == nextRound[j].player){
+                            nextRound[j].wins++
+                            break
+                        }
                     }
                 }
 
@@ -132,16 +133,26 @@ class PreLim2 : AppCompatActivity(), Serializable{
                 startActivity(intent)
             }
             else{ //Still need more prelim rounds
-                if(previousRound.size / 2 != listOfWinners.size){
+                var allRecorded = true
+                for(i in 0.until(currentRound.size)){
+                    if(currentRound[i].winner == ""){
+                        allRecorded = false
+                        break
+                    }
+                }
+
+                if(!allRecorded){
                     Toast.makeText(this, "Not all rounds have been recorded!", Toast.LENGTH_LONG).show()
                 }
                 else{
                     //Update List
                     nextRound = previousRound
-                    for(i in 0.until(nextRound.size)){
-                        val player = nextRound[i].player
-                        if(listOfWinners.contains(player)){
-                            nextRound[i].wins++
+                    for(i in 0.until(currentRound.size)){
+                        for(j in 0.until(nextRound.size)){
+                            if(currentRound[i].winner == nextRound[j].player){
+                                nextRound[j].wins++
+                                break
+                            }
                         }
                     }
 
