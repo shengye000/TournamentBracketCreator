@@ -133,10 +133,17 @@ wins will face off in a single elimination bracket until one player is crowned t
                 android:layout_height="wrap_content"
                 android:text="challonge.com"
                 android:id="@+id/challonge_button"
-                android:background="@color/olive"
+                />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/home_image"
                 />
 
         </LinearLayout>
+
 
 
 

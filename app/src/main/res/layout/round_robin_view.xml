@@ -18,21 +18,19 @@
         >
 
         <Button
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="cancel"
+            android:text="Previous Round"
             android:id="@+id/previous_button"
-            android:background="@color/red"
             />
 
         <Button
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:text="Next Round"
             android:id="@+id/next_button"
-            android:background="@color/green"
             />
 
     </LinearLayout>
@@ -43,10 +41,10 @@
         android:id="@+id/round_number"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBracket"
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/round_robin_list_view"
         />
 
 </LinearLayout>

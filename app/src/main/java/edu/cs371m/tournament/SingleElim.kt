@@ -2,7 +2,6 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,7 +56,7 @@ class SingleElim : AppCompatActivity(){
             if(remainder / 2.toDouble().pow(NInt) > 0.5){
                 val numBye = 2.toDouble().pow(NInt + 1) - previousRound.size
                 for(a in 0.until(numBye.toInt())){
-                    previousRound.add("BYE")
+                    previousRound.add("BYE#" + a.toString())
                 }
                 var i = 0
                 var j = 0
@@ -105,10 +104,9 @@ class SingleElim : AppCompatActivity(){
 
         //Need to fix issue with not showing correctly some stuff with going back and creating another instead of getting right activity.
         previous_button.setOnClickListener {
-            if(roundNumber == 1){
-                Toast.makeText(this, "This is the first Round!", Toast.LENGTH_LONG).show()
-            }
-            super.onBackPressed()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
         }
         next_button.setOnClickListener{
             var allRecorded = true

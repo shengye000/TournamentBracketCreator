@@ -80,12 +80,9 @@ class RoundRobin : AppCompatActivity(){
         nextRound = ArrayList()
 
         previous_button.setOnClickListener {
-            if(roundNumber == 1){
-                Toast.makeText(this, "This is the first Round!", Toast.LENGTH_LONG).show()
-            }
-            else{
-                super.onBackPressed()
-            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
         }
         next_button.setOnClickListener {
             if((previousRound.size * 1.5).toInt() == totalMatches){

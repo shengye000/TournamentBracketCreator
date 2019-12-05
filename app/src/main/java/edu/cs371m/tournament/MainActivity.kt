@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +17,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val iView = findViewById<ImageView>(R.id.home_image)
+        if (iView != null)
+            Glide.with(this).load("https://media.giphy.com/media/QVUSQk1LWloNfuKn9z/source.gif").centerCrop().into(iView)
 
         single_elim_button.setOnClickListener {
             val intent = Intent(this, ElimActivity::class.java)

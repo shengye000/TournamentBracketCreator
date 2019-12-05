@@ -36,12 +36,15 @@ class DoubleElim : AppCompatActivity(){
                 val N = log2(previousRoundWinner.size.toDouble())
                 val nIntUpper = N.toInt() + 1
                 val numByes = 2.toDouble().pow(nIntUpper).toInt() - previousRoundWinner.size
+                Log.d("debug", numByes.toString())
 
                 if(numByes != previousRoundWinner.size){
                     for(i in 0.until(numByes)){
-                        previousRoundWinner.add("BYE")
+                        previousRoundWinner.add("BYE#" + i.toString())
                     }
                 }
+
+                Log.d("debug2", previousRoundWinner.size.toString())
                 previousRoundWinner.shuffle()
 
                 //Deal with winner's round only
@@ -134,23 +137,31 @@ class DoubleElim : AppCompatActivity(){
         nextRoundLoser = ArrayList()
 
         previous_button.setOnClickListener {
-            if(roundNumber == 1){
-                Toast.makeText(this, "This is the first Round!", Toast.LENGTH_LONG).show()
-            }
-            else{
-                super.onBackPressed()
-            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
         }
         next_button.setOnClickListener{
             if(roundNumber == 1){
-                if(nextRoundWinner.size != previousRoundWinner.size / 2){
+                var allWinner = true
+                for(i in 0.until(currentRoundWinner.size)){
+                    if(currentRoundWinner[i].winner == ""){
+                        allWinner = false
+                        break
+                    }
+                }
+                if(!allWinner){
                     Toast.makeText(this, "Not all rounds have been recorded!", Toast.LENGTH_LONG).show()
                 }
                 else{
-                    //need to add the losers list
+                    //need to add to the winners list
+                    for(i in 0.until(currentRoundWinner.size)){
+                        nextRoundWinner.add(currentRoundWinner[i].winner)
+                    }
+                    //need to add to the losers list
                     for(i in 0.until(previousRoundWinner.size)){
-                        if(!nextRoundWinner.contains(previousRoundWinner[i])){
-                           nextRoundLoser.add(previousRoundWinner[i])
+                        if(!nextRoundWinner.contains(previousRoundWinner[i]) && !nextRoundLoser.contains(previousRoundWinner[i])){
+                            nextRoundLoser.add(previousRoundWinner[i])
                         }
                     }
                     //Send to next activity
@@ -164,9 +175,34 @@ class DoubleElim : AppCompatActivity(){
             else{
                 //need to add losers to winners
                 if(roundNumber % 2 == 0){
-                    if(nextRoundWinner.size == previousRoundWinner.size / 2 && nextRoundLoser.size == previousRoundLoser.size / 2){
+                    var allRounds = true
+                    for(i in 0.until(currentRoundWinner.size)){
+                        if(currentRoundWinner[i].winner == ""){
+                            allRounds = false
+                            break
+                        }
+                    }
+                    for(i in 0.until(currentRoundLoser.size)){
+                        if(currentRoundLoser[i].winner == ""){
+                            allRounds = false
+                            break
+                        }
+                    }
+                    if(!allRounds){
+                        Toast.makeText(this, "Not all rounds have been recorded!", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        //add winners of winners bracket
+                        for(i in 0.until(currentRoundWinner.size)){
+                            nextRoundWinner.add(currentRoundWinner[i].winner)
+                        }
+                        //add winners of losers bracket
+                        for(i in 0.until(currentRoundLoser.size)){
+                            nextRoundLoser.add(currentRoundLoser[i].winner)
+                        }
+                        //add loser of winners to losers bracket
                         for(i in 0.until(previousRoundWinner.size)){
-                            if(!nextRoundLoser.contains(previousRoundWinner[i]) && !nextRoundWinner.contains(previousRoundWinner[i])){
+                            if(!nextRoundWinner.contains(previousRoundWinner[i]) && !nextRoundLoser.contains(previousRoundWinner[i])){
                                 nextRoundLoser.add(previousRoundWinner[i])
                             }
                         }
@@ -177,23 +213,29 @@ class DoubleElim : AppCompatActivity(){
                         intent.putExtra("round", roundNumber + 1)
                         startActivity(intent)
                     }
-                    else{
+                }
+                //then good, only need losers ROund
+                if(roundNumber % 2 == 1){
+                    var allRecorded = true
+                    for(i in 0.until(currentRoundLoser.size)){
+                        if(currentRoundLoser[i].winner == ""){
+                            allRecorded = false
+                        }
+                    }
+                    if(!allRecorded){
                         Toast.makeText(this, "Not all rounds have been recorded!", Toast.LENGTH_LONG).show()
                     }
-
-                }
-                //then good
-                if(roundNumber % 2 == 1){
-                    if(nextRoundWinner.size == previousRoundWinner.size && nextRoundLoser.size == previousRoundLoser.size / 2){
+                    else{
+                        for(i in 0.until(currentRoundLoser.size)){
+                            nextRoundLoser.add(currentRoundLoser[i].winner)
+                        }
+                        nextRoundWinner = previousRoundWinner
                         //Send to next activity
                         val intent = Intent(this, DoubleElim::class.java)
                         intent.putExtra("winner_list", nextRoundWinner)
                         intent.putExtra("loser_list", nextRoundLoser)
                         intent.putExtra("round", roundNumber + 1)
                         startActivity(intent)
-                    }
-                    else{
-                        Toast.makeText(this, "Not all rounds have been recorded!", Toast.LENGTH_LONG).show()
                     }
                 }
             }

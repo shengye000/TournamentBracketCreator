@@ -92,18 +92,17 @@ class PreLim2 : AppCompatActivity(), Serializable{
         listOfWinners = ArrayList()
 
         //Need a Bye if round number is odd
+        var numBye = 0
         if(roundNumber == 1 && previousRound.size % 2 == 1){
-            previousRound.add(PreLimData("BYE", 0))
+            numBye++
+            previousRound.add(PreLimData("BYE#" + numBye.toString(), 0))
         }
 
         //Need to fix issue with not showing correctly some stuff with going back and creating another instead of getting right activity.
         previous_button.setOnClickListener {
-            if(roundNumber == 1){
-                Toast.makeText(this, "This is the first Round!", Toast.LENGTH_LONG).show()
-            }
-            else{
-                super.onBackPressed()
-            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
         }
         next_button.setOnClickListener{
             //Go to single elimination with the correct number of wins

@@ -44,4 +44,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-beta01'
 
     implementation 'nl.dionsegijn:konfetti:1.1.2'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+
+
+
 }
