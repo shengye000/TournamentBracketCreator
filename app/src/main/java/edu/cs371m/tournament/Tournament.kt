@@ -1,5 +1,6 @@
 package edu.cs371m.tournament
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,11 +19,58 @@ class Tournament : AppCompatActivity(){
     private lateinit var viewModel: ChallongeViewModel
     private lateinit var tournamentList : List<TournamentInfo>
     private var chosenTournamentURL = ""
+    private var apiKey = ""
 
-
+    //Challonge API key:R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tournament_view)
+        api_key_button.setOnClickListener {
+            apiKey = api_key_edit.text.toString()
+            if(apiKey == ""){
+                Toast.makeText(this, "NO API KEY WRITTEN", Toast.LENGTH_LONG).show()
+            }
+            else{
+                viewModel.chosenapiKey(apiKey)
+
+                viewModel.observeTournamentInfo().observe(this, Observer{
+                    tournamentList = it
+                    if(tournamentList.isNotEmpty()){
+                        val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
+                        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+                        var adapter = TournamentAdapter(tournamentList){
+                            chosenTournamentURL = it
+                            Log.d("debug",chosenTournamentURL)
+                            chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
+                        }
+                        rv.adapter = adapter
+                    }
+                })
+                viewModel.netRefreshTournament()
+            }
+
+        }
+        default_api_button.setOnClickListener {
+            apiKey = "R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts"
+            viewModel.chosenapiKey(apiKey)
+
+            viewModel.observeTournamentInfo().observe(this, Observer{
+                tournamentList = it
+                if(tournamentList.isNotEmpty()){
+                    val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
+                    rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+                    var adapter = TournamentAdapter(tournamentList){
+                        chosenTournamentURL = it
+                        Log.d("debug",chosenTournamentURL)
+                        chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
+                    }
+                    rv.adapter = adapter
+                }
+            })
+            viewModel.netRefreshTournament()
+        }
 
         chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
         button.setOnClickListener {
@@ -33,6 +81,7 @@ class Tournament : AppCompatActivity(){
                 val intent = Intent(this, Challonge::class.java)
                 Log.d("debug", "in Tournament" + viewModel.returnURL())
                 intent.putExtra("url_string", chosenTournamentURL)
+                intent.putExtra("api_string", apiKey)
                 startActivity(intent)
             }
         }
@@ -43,20 +92,6 @@ class Tournament : AppCompatActivity(){
         }
 
         viewModel = ViewModelProviders.of(this)[ChallongeViewModel::class.java]
-        viewModel.observeTournamentInfo().observe(this, Observer{
-            tournamentList = it
-            if(tournamentList.isNotEmpty()){
-                val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
-                rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-                var adapter = TournamentAdapter(tournamentList){
-                    chosenTournamentURL = it
-                    Log.d("debug",chosenTournamentURL)
-                    chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
-                }
-                rv.adapter = adapter
-            }
-        })
-        viewModel.netRefreshTournament()
     }
 }

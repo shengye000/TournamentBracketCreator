@@ -25,9 +25,24 @@ class ChallongeViewModel : ViewModel(){
     private var url = MutableLiveData<String>().apply{
         value = "!null"
     }
+    private var apiKey = MutableLiveData<String>().apply{
+        value = ""
+    }
+
+    fun returnapiKey() : String{
+        return apiKey.value.toString()
+    }
+
+    fun chosenapiKey(string: String){
+        apiKey.value = string
+    }
 
     fun returnURL() : String{
         return url.value.toString()
+    }
+
+    fun chosenTournament(string: String){
+        url.value = string
     }
 
     fun observeTournamentInfo() : LiveData<List<TournamentInfo>> {
@@ -35,10 +50,15 @@ class ChallongeViewModel : ViewModel(){
     }
 
     fun netRefreshTournament(){
-        viewModelScope.launch(
-            context = viewModelScope.coroutineContext
-                + Dispatchers.IO){
-            tournamentInfo.postValue(challongeRepo.getTournament())
+        if(apiKey.value.toString() == ""){
+            Log.d("debug", "nothing happened api")
+        }
+        else{
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                tournamentInfo.postValue(challongeRepo.getTournament(apiKey.value.toString()))
+            }
         }
     }
 
@@ -47,20 +67,17 @@ class ChallongeViewModel : ViewModel(){
     }
 
     fun netRefreshChallonge(){
-        if(url.value.toString() == "!null"){
+        if(url.value.toString() == "!null" || apiKey.value.toString() == "!null"){
             Log.d("debug", "nothing happened")
         }
         else{
             viewModelScope.launch(
                 context = viewModelScope.coroutineContext
                         + Dispatchers.IO){
-                challongeInfo.postValue(challongeRepo.getChallonge(url.value.toString()))
+                challongeInfo.postValue(challongeRepo.getChallonge(url.value.toString(), apiKey.value.toString()))
             }
         }
     }
 
-    fun chosenTournament(string: String){
-        url.value = string
-    }
 
 }

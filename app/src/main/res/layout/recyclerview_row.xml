@@ -34,8 +34,8 @@
                 android:layout_weight="5"
                 android:textSize="30sp"
                 android:id="@+id/player_1"
-                android:maxLength="13"
-                android:ellipsize="marquee"
+                android:scrollbars="horizontal"
+                android:singleLine="true"
                 />
             <Button
                 android:layout_width="0dp"
@@ -58,8 +58,8 @@
                 android:layout_weight="5"
                 android:textSize="30sp"
                 android:id="@+id/player_2"
-                android:maxLength="13"
-                android:ellipsize="marquee"
+                android:scrollbars="horizontal"
+                android:singleLine="true"
                 />
             <Button
                 android:layout_width="0dp"

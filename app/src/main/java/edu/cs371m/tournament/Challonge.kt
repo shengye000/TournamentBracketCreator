@@ -28,6 +28,7 @@ class Challonge : AppCompatActivity(){
 
         viewModel = ViewModelProviders.of(this)[ChallongeViewModel::class.java]
         viewModel.chosenTournament(intent.getStringExtra("url_string"))
+        viewModel.chosenapiKey(intent.getStringExtra("api_string"))
         Log.d("debug", "In challonge" + viewModel.returnURL())
 
         viewModel.observeChallongeInfo().observe(this, Observer{

@@ -47,7 +47,7 @@
         <activity android:name=".Challonge" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".Tournament">
+        <activity android:name=".Tournament" android:windowSoftInputMode="adjustPan">
 
         </activity>
     </application>

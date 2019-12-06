@@ -3,19 +3,49 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="List of tournaments found:"
-        android:textSize="26sp"
-        android:gravity="center"
-    />
+        android:orientation="vertical"
+        android:background="@drawable/textboxborder">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Insert API Key Here:"
+            android:gravity="center"
+            android:textSize="24sp"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/api_key_edit"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="use written api key"
+            android:id="@+id/api_key_button"
+            android:background="@color/aqua"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/default_api_button"
+        android:background="@color/lime"
+        android:text="use example api key"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTournament"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:background="@drawable/customborder"
         />
 
     <TextView
