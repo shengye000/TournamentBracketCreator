@@ -21,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/api_key_edit"
+            android:hint="WARNING! A wrong API Key will crash the app."
+            android:textColorHint="@color/red"
             />
         <Button
             android:layout_width="match_parent"

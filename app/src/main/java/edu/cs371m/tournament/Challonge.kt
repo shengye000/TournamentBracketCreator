@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.tournament.api.ChallongeInfo
-import edu.cs371m.tournament.api.TournamentInfo
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.challonge_view.*
 
 class Challonge : AppCompatActivity(){

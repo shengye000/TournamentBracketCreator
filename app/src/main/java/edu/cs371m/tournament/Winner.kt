@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.winner_page.*
 import android.content.Intent
 import android.graphics.Color
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import nl.dionsegijn.konfetti.models.Shape

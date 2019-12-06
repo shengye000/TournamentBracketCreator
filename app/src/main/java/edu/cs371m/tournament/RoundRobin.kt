@@ -2,14 +2,12 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_view.*
 import kotlin.math.log
-import kotlin.math.log2
 import kotlin.math.pow
 
 class RoundRobin : AppCompatActivity(){
@@ -148,7 +146,6 @@ class RoundRobin : AppCompatActivity(){
                             }
                             i++
                         }
-                        //Log.d("debug", nextRound.toString())
                         val intent = Intent(this, RoundRobin::class.java)
                         intent.putExtra("list", nextRound)
                         intent.putExtra("round", roundNumber + 1)

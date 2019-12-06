@@ -1,13 +1,11 @@
 package edu.cs371m.tournament
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
 class RoundRobinAdapter(private val userList: ArrayList<RoundRobinGame>): RecyclerView.Adapter<RoundRobinAdapter.ViewHolder>() {
 

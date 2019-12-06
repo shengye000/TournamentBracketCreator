@@ -6,12 +6,14 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/bracket_number"
-        android:textSize="72sp"
+        android:textSize="48sp"
         android:layout_weight="1"
         android:background="@drawable/textboxborder"
-        android:scrollbars="horizontal"
+        android:ellipsize="start"
+        android:singleLine = "true"
+        android:gravity="center"
         />
 
     <LinearLayout

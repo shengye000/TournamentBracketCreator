@@ -1,7 +1,5 @@
 package edu.cs371m.tournament
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +10,6 @@ import edu.cs371m.tournament.api.Repository
 import edu.cs371m.tournament.api.TournamentInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import retrofit2.Call
-import kotlin.coroutines.coroutineContext
 
 class ChallongeViewModel : ViewModel(){
 
@@ -23,7 +18,7 @@ class ChallongeViewModel : ViewModel(){
     private val challongeInfo = MutableLiveData<List<ChallongeInfo>>()
     private val tournamentInfo = MutableLiveData<List<TournamentInfo>>()
     private var url = MutableLiveData<String>().apply{
-        value = "!null"
+        value = ""
     }
     private var apiKey = MutableLiveData<String>().apply{
         value = ""
@@ -50,10 +45,7 @@ class ChallongeViewModel : ViewModel(){
     }
 
     fun netRefreshTournament(){
-        if(apiKey.value.toString() == ""){
-            Log.d("debug", "nothing happened api")
-        }
-        else{
+        if(apiKey.value.toString() != ""){
             viewModelScope.launch(
                 context = viewModelScope.coroutineContext
                         + Dispatchers.IO){
@@ -67,10 +59,7 @@ class ChallongeViewModel : ViewModel(){
     }
 
     fun netRefreshChallonge(){
-        if(url.value.toString() == "!null" || apiKey.value.toString() == "!null"){
-            Log.d("debug", "nothing happened")
-        }
-        else{
+        if(url.value.toString() != "" && apiKey.value.toString() != ""){
             viewModelScope.launch(
                 context = viewModelScope.coroutineContext
                         + Dispatchers.IO){

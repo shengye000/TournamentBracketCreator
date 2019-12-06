@@ -35,7 +35,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text = "The winner is:"
-        android:textSize="48dp"
+        android:textSize="32dp"
         />
     <TextView
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:id="@+id/winner_name"
-        android:textSize="48dp"/>
+        android:textSize="32dp"/>
     <Button
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -51,5 +51,6 @@
         android:gravity="center"
         android:id="@+id/reset_button"
         android:text= "Create a new bracket"
+        android:background="@color/green"
         />
 </LinearLayout>

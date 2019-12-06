@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
 class RoundRobinTieAdapter(val userList: ArrayList<RoundRobinTieBreakerData>, val listener: (String) -> Unit): RecyclerView.Adapter<RoundRobinTieAdapter.ViewHolder>() {
 

@@ -1,6 +1,5 @@
 package edu.cs371m.tournament
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import edu.cs371m.tournament.api.ChallongeInfo
 import edu.cs371m.tournament.api.TournamentInfo
 import kotlinx.android.synthetic.main.tournament_view.*
 

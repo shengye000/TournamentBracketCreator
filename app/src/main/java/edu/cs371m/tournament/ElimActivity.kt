@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.settings_page_1.*
 class ElimActivity : AppCompatActivity() {
 
     private var bracketType = ""
+    private var anonNum = 1
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -85,7 +86,8 @@ class ElimActivity : AppCompatActivity() {
             }
             else{
                for(i in 0.until(text.toString().toInt())){
-                   mutableList.add("P" + (i+1).toString())
+                   mutableList.add("Player " + anonNum)
+                   anonNum++
                    userET2.text.clear()
                    viewAdapter.notifyDataSetChanged()
                }

@@ -2,8 +2,6 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.widget.Toast
 import java.io.Serializable
 import androidx.appcompat.app.AppCompatActivity

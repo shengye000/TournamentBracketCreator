@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
 class SingleElimAdapter(private val userList: ArrayList<Game>): RecyclerView.Adapter<SingleElimAdapter.ViewHolder>() {
 

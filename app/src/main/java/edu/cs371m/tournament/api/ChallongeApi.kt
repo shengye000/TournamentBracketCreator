@@ -1,23 +1,19 @@
 package edu.cs371m.tournament.api
 
 import android.util.Log
-import android.widget.Toast
-import edu.cs371m.tournament.MainActivity
-import edu.cs371m.tournament.Tournament
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.IOException
-
 
 interface ChallongeApi{
 
-    //Tournament 1: 7xpcu8am
-    //TOurnament 2: 70wz88hu
     @GET("/v1/tournaments/{url}/participants.json")
     suspend fun getChallongeResponse(@Path("url") url : String,
                                      @Query("api_key") apiKey: String) : List<ChallongeInfo>
@@ -27,7 +23,6 @@ interface ChallongeApi{
 
     companion object {
         var httpurl = HttpUrl.Builder()
-            //before stuff: CapK:R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts@
             .scheme("https")
             .host("api.challonge.com")
             .build()
@@ -43,7 +38,7 @@ interface ChallongeApi{
                     val request = chain.request()
                     var response = chain.proceed(request)
                         if (response.code == 401){
-                            Log.d("debug","INCORRECT AUTH KEY")
+                            Log.d("debug", "Wrong API Key Error")
                         }
                     response
                 }

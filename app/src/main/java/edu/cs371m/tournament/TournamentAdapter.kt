@@ -1,7 +1,5 @@
 package edu.cs371m.tournament
 
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.tournament.api.TournamentInfo
-import kotlinx.android.synthetic.main.recyclerview_row.view.*
 
 class TournamentAdapter(val userList: List<TournamentInfo>, val listener: (String) -> Unit): RecyclerView.Adapter<TournamentAdapter.ViewHolder>() {
 
