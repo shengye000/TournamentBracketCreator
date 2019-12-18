@@ -3,10 +3,13 @@ package edu.cs371m.tournament
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.ActionBar
 import kotlinx.android.synthetic.main.settings_page_1.*
 
 class ElimActivity : AppCompatActivity() {
@@ -36,6 +39,16 @@ class ElimActivity : AppCompatActivity() {
     fun prelimBracket(){
         bracket_type_title.text = "Pre Elimination"
         bracket_desc.text="Write the competitor name and Click Add or Remove."
+    }
+
+    fun initActionBar(actionBar: ActionBar) {
+        // Disable the default and enable the custom
+        actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.setDisplayShowCustomEnabled(true)
+        val customView: View =
+            layoutInflater.inflate(R.layout.action_bar, null)
+        // Apply the custom view
+        actionBar.customView = customView
     }
 
     fun createBracket(){
@@ -137,6 +150,12 @@ class ElimActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_page_1)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            initActionBar(it)
+        }
 
         bracketType = intent.getStringExtra("type")
         Log.d("Bracket", bracketType)

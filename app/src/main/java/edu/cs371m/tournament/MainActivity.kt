@@ -13,6 +13,9 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.Toolbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,10 +34,26 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun initActionBar(actionBar: ActionBar) {
+            // Disable the default and enable the custom
+        actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.setDisplayShowCustomEnabled(true)
+        val customView: View =
+            layoutInflater.inflate(R.layout.action_bar, null)
+        // Apply the custom view
+        actionBar.customView = customView
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            initActionBar(it)
+        }
 
         val iView = findViewById<ImageView>(R.id.home_image)
         if (iView != null)
@@ -44,30 +63,32 @@ class MainActivity : AppCompatActivity() {
             startActivity(browserIntent)
         }
 
-        single_elim_button.setOnClickListener {
+        val view = findViewById<View>(R.id.content_xml)
+
+        view.findViewById<Button>(R.id.single_elim_button).setOnClickListener {
             val intent = Intent(this, ElimActivity::class.java)
             intent.putExtra("type", "s")
             startActivity(intent)
         }
 
-        double_elim_button.setOnClickListener{
+        view.findViewById<Button>(R.id.double_elim_button).setOnClickListener{
             val intent = Intent(this, ElimActivity::class.java)
             intent.putExtra("type", "d")
             startActivity(intent)
         }
 
-        round_robin_button.setOnClickListener {
+        view.findViewById<Button>(R.id.round_robin_button).setOnClickListener {
             val intent = Intent(this, ElimActivity::class.java)
             intent.putExtra("type", "rr")
             startActivity(intent)
         }
 
-        pre_elim_button.setOnClickListener {
+        view.findViewById<Button>(R.id.pre_elim_button).setOnClickListener {
             val intent = Intent(this, ElimActivity::class.java)
             intent.putExtra("type", "pre")
             startActivity(intent)
         }
-        challonge_button.setOnClickListener {
+        view.findViewById<Button>(R.id.challonge_button).setOnClickListener {
             val intent = Intent(this, Tournament::class.java)
             startActivity(intent)
         }

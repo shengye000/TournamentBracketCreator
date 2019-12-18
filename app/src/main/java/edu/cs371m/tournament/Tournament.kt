@@ -19,7 +19,6 @@ class Tournament : AppCompatActivity(){
     private var chosenTournamentURL = ""
     private var apiKey = ""
 
-    //Challonge API key:R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tournament_view)
@@ -50,7 +49,7 @@ class Tournament : AppCompatActivity(){
 
         }
         default_api_button.setOnClickListener {
-            apiKey = "R3Xxr5i4HvMOKLIaito1hOtArNGVEEYilmxPj4Ts"
+            apiKey = ""
             viewModel.chosenapiKey(apiKey)
 
             viewModel.observeTournamentInfo().observe(this, Observer{
