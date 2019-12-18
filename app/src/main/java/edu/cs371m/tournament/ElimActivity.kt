@@ -52,6 +52,7 @@ class ElimActivity : AppCompatActivity() {
 
         add_button.setOnClickListener {
             val text = userET.text
+            MainActivity.hideKeyboard.hideKeyboardActivity(this)
             if(text.isEmpty()){
                 Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
             }
@@ -66,6 +67,7 @@ class ElimActivity : AppCompatActivity() {
         }
         delete_button.setOnClickListener {
             val text = userET.text
+            MainActivity.hideKeyboard.hideKeyboardActivity(this)
             if(text.isEmpty()){
                 Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
             }
@@ -81,6 +83,7 @@ class ElimActivity : AppCompatActivity() {
         }
         add_all_button.setOnClickListener{
             val text = userET2.text
+            MainActivity.hideKeyboard.hideKeyboardActivity(this)
             if(text.isNullOrEmpty()){
                 Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
             }
