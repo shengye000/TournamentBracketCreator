@@ -2,9 +2,13 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_view.*
@@ -18,6 +22,31 @@ class SingleElim : AppCompatActivity(){
     private lateinit var previousRound : ArrayList<String>
     private lateinit var currentRound: ArrayList<Game>
     private lateinit var nextRound : ArrayList<String>
+    private lateinit var rv: RecyclerView
+    private lateinit var filteredList: List<Game>
+
+    private fun titleSearch() {
+        val titleBar = findViewById<EditText>(R.id.actionSearch)
+        titleBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0!!.isEmpty()){
+                    MainActivity.hideKeyboardActivity(this@SingleElim)
+                    filteredList= currentRound.filterNot { it.name1.startsWith("BYE") && it.name2.startsWith("BYE") }
+                    createRecyclerView(ArrayList(filteredList))
+                }
+                else{
+                    var filteredListSearch = currentRound.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true))}
+                    createRecyclerView(ArrayList(filteredListSearch))
+                }
+            }
+        })
+    }
 
     private fun createOpponents(){
         if(roundNumber == 1){
@@ -57,7 +86,7 @@ class SingleElim : AppCompatActivity(){
             if(remainder / 2.toDouble().pow(NInt) > 0.5){
                 val numBye = 2.toDouble().pow(NInt + 1) - previousRound.size
                 for(a in 0.until(numBye.toInt())){
-                    previousRound.add("BYE#" + a.toString())
+                    previousRound.add("BYE" + a.toString())
                 }
                 var i = 0
                 var j = 0
@@ -68,8 +97,6 @@ class SingleElim : AppCompatActivity(){
                 }
 
             }
-
-
         }
         else{ //Round not 1, so bracket is always in squares of 2
             var i = 0
@@ -90,21 +117,31 @@ class SingleElim : AppCompatActivity(){
                 currentRound[i].winner = currentRound[i].name1
             }
         }
-        //Make the recyclerView Here
-        createRecyclerView()
+
+//        //Make the recyclerView Here
+        filteredList= currentRound.filterNot { it.name1.startsWith("BYE") && it.name2.startsWith("BYE") }
+        createRecyclerView(ArrayList(filteredList))
     }
 
-    private fun createRecyclerView(){
-        val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
+    private fun createRecyclerView(list: ArrayList<Game>){
+        rv = findViewById(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(currentRound)
+        var adapter = SingleElimAdapter(list)
         rv.adapter = adapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_view)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
+
+        titleSearch()
 
         bracket_type_title.text = "Single Elimination"
         roundNumber = intent.getIntExtra("round", 0)

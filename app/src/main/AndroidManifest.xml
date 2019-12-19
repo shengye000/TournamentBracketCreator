@@ -20,28 +20,28 @@
         <activity android:name=".ElimActivity" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".SingleElim">
+        <activity android:name=".SingleElim" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".Winner">
+        <activity android:name=".Winner" android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity android:name=".PreLim" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".PreLim2">
+        <activity android:name=".PreLim2" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".DoubleElim">
+        <activity android:name=".DoubleElim" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".DoubleElimGrandFinals">
+        <activity android:name=".DoubleElimGrandFinals" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".RoundRobin">
+        <activity android:name=".RoundRobin" android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".RoundRobinTieBreaker">
+        <activity android:name=".RoundRobinTieBreaker" android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity android:name=".Challonge" android:windowSoftInputMode="adjustPan">

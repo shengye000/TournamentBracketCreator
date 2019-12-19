@@ -7,7 +7,6 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import android.net.Uri
 import android.app.Activity
-import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -76,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://tonyspasta.com/"))
             startActivity(browserIntent)
         }
-
         val view = findViewById<View>(R.id.content_xml)
 
         view.findViewById<Button>(R.id.single_elim_button).setOnClickListener {

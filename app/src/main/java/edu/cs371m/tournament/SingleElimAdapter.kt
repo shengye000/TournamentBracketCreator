@@ -33,7 +33,9 @@ class SingleElimAdapter(private val userList: ArrayList<Game>): RecyclerView.Ada
                 holder.txtButton1.text = "L"
                 holder.txtButton1.setBackgroundColor(Color.RED)
             }
+
         }
+
         else{
             holder.txtButton1.text = ""
             holder.txtButton2.text = ""
