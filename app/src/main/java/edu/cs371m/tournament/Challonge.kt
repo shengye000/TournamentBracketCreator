@@ -39,7 +39,9 @@ class Challonge : AppCompatActivity(){
 
                 //adapter
                 viewManager = LinearLayoutManager(this)
-                viewAdapter = ElimActivityAdapter(currentList)
+                viewAdapter = ElimActivityAdapter(currentList){
+
+                }
 
                 recyclerView = findViewById<RecyclerView>(R.id.recyclerViewChallonge).apply {
                     layoutManager = viewManager

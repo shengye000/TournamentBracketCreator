@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class ElimActivityAdapter(private val myDataset: MutableList<String>) :
+class ElimActivityAdapter(private val myDataset: MutableList<String>, val listener: (String) -> Unit) :
     RecyclerView.Adapter<ElimActivityAdapter.MyViewHolder>() {
 
     class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -15,7 +15,9 @@ class ElimActivityAdapter(private val myDataset: MutableList<String>) :
                                     viewType: Int): MyViewHolder {
         val textView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_player, parent, false) as TextView
-
+        textView.setOnClickListener {
+            listener(textView.text.toString())
+        }
         return MyViewHolder(textView)
     }
 

@@ -5,23 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.*
 import android.net.Uri
 import android.app.Activity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 
 
+
+
+
 class MainActivity : AppCompatActivity() {
 
-    object hideKeyboard{
-        fun hideKeyboardActivity(activity: Activity) {
+    companion object MainActivityFunctions{
+        fun hideKeyboardActivity(activity: Activity) : Boolean{
             val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             //Find the currently focused view, so we can grab the correct window token from it.
             var view = activity.currentFocus
@@ -29,20 +30,33 @@ class MainActivity : AppCompatActivity() {
             if (view == null) {
                 view = View(activity)
             }
-            imm!!.hideSoftInputFromWindow(view!!.windowToken, 0)
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
         }
 
+        fun initActionBar(actionBar: ActionBar, activity: Activity) {
+            // Disable the default and enable the custom
+            actionBar.setDisplayShowTitleEnabled(false)
+            actionBar.setDisplayShowCustomEnabled(true)
+            val customView: View =
+                activity.layoutInflater.inflate(R.layout.action_bar, null)
+            // Apply the custom view
+            actionBar.customView = customView
+
+            val titleBar = activity.findViewById<Button>(R.id.searchButton)
+            titleBar.setOnClickListener {
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                activity.startActivity(intent)
+            }
+
+            val actionSearch = activity.findViewById<EditText>(R.id.actionSearch)
+            actionSearch.setOnLongClickListener {
+                hideKeyboardActivity(activity)
+            }
+        }
     }
 
-    fun initActionBar(actionBar: ActionBar) {
-            // Disable the default and enable the custom
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setDisplayShowCustomEnabled(true)
-        val customView: View =
-            layoutInflater.inflate(R.layout.action_bar, null)
-        // Apply the custom view
-        actionBar.customView = customView
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.let{
-            initActionBar(it)
+            initActionBar(it, this)
         }
 
         val iView = findViewById<ImageView>(R.id.home_image)
