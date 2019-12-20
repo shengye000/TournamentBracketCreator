@@ -78,7 +78,7 @@ class PreLim2 : AppCompatActivity(), Serializable{
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(currentRound)
+        var adapter = SingleElimAdapter(currentRound, false)
         rv.adapter = adapter
 
     }

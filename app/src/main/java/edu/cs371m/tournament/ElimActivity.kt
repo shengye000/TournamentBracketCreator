@@ -66,7 +66,7 @@ class ElimActivity : AppCompatActivity() {
         val titleBar = findViewById<EditText>(R.id.actionSearch)
         titleBar.text.clear()
         recyclerViewList(mutableList)
-        bracket_desc.text="Write the competitor's name and click Add or Delete. \nNumber of competitors: " + mutableList.size.toString()
+        bracket_desc.text="Write the competitor's name and click Add or Delete. \nHold Delete to delete all. Number of competitors: " + mutableList.size.toString()
     }
 
     private fun createBracket(){
@@ -107,6 +107,12 @@ class ElimActivity : AppCompatActivity() {
                 text.clear()
             }
         }
+        delete_button.setOnLongClickListener {
+            MainActivity.hideKeyboardActivity(this)
+            mutableList.clear()
+            cleanUp()
+            true
+        }
         add_all_button.setOnClickListener{
             val text = userET2.text
             MainActivity.hideKeyboardActivity(this)
@@ -117,6 +123,7 @@ class ElimActivity : AppCompatActivity() {
                for(i in 0.until(text.toString().toInt())){
                    mutableList.add("PLAYER" + anonNum)
                    anonNum++
+                   userET2.text.clear()
                    cleanUp()
                }
             }
@@ -136,6 +143,7 @@ class ElimActivity : AppCompatActivity() {
             val intent = Intent(this, SingleElim::class.java)
             intent.putExtra("list", ArrayList(mutableList))
             intent.putExtra("round", 1)
+            intent.putExtra("result", ArrayList<List<Game>>())
             intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
@@ -190,7 +198,7 @@ class ElimActivity : AppCompatActivity() {
         if(bracketType == "pre"){
             bracket_type_title.text = "Pre Elimination"
         }
-        bracket_desc.text="Write the competitor's name and click Add or Delete. \nNumber of competitors: " + mutableList.size.toString()
+        bracket_desc.text="Write the competitor's name and click Add or Delete. \nHold Delete to delete all. Number of competitors: " + mutableList.size.toString()
 
         createBracket()
     }

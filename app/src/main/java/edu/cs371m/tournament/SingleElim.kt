@@ -24,6 +24,8 @@ class SingleElim : AppCompatActivity(){
     private lateinit var nextRound : ArrayList<String>
     private lateinit var rv: RecyclerView
     private lateinit var filteredList: List<Game>
+    private lateinit var results : ArrayList<List<Game>>
+    private var previousStatus = false
 
     private fun titleSearch() {
         val titleBar = findViewById<EditText>(R.id.actionSearch)
@@ -41,7 +43,7 @@ class SingleElim : AppCompatActivity(){
                     createRecyclerView(ArrayList(filteredList))
                 }
                 else{
-                    var filteredListSearch = currentRound.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true))}
+                    var filteredListSearch = filteredList.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true))}
                     createRecyclerView(ArrayList(filteredListSearch))
                 }
             }
@@ -51,51 +53,23 @@ class SingleElim : AppCompatActivity(){
     private fun createOpponents(){
         if(roundNumber == 1){
             previousRound.shuffle()
-
+            //Make sure bracket is in multiples of 2
             val N = log2(previousRound.size.toDouble())
-            val NInt = N.toInt()
-            val remainder = previousRound.size - 2.toDouble().pow(NInt)
+            val nIntUpper = N.toInt() + 1
+            val numByes = 2.toDouble().pow(nIntUpper).toInt() - previousRound.size
 
-            //Number of participants = 2,4,8,16,32, etc.
-            if(remainder == 0.0){
-                var i = 0
-                var j = 0
-                while (i < previousRound.size) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
-                    j++
-                    i += 2
+            if(numByes != previousRound.size){
+                for(i in 0.until(numByes)){
+                    previousRound.add("BYE")
                 }
             }
-
-            //Create remainder number of brackets and put rest in nextRound
-            if(remainder != 0.0 && remainder / 2.toDouble().pow(NInt) <= 0.5){
-                var i = 0
-                var j = 0
-                while ( j < remainder.toInt()) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
-                    j++
-                    i += 2
-                }
-                //next round due to leftovers. Screw the bracket, we're giving them random here
-                for(k in i.until(previousRound.size)){
-                    nextRound.add(previousRound[k])
-                }
-            }
-
-            //Just create bracket with BYES if bigger
-            if(remainder / 2.toDouble().pow(NInt) > 0.5){
-                val numBye = 2.toDouble().pow(NInt + 1) - previousRound.size
-                for(a in 0.until(numBye.toInt())){
-                    previousRound.add("BYE" + a.toString())
-                }
-                var i = 0
-                var j = 0
-                while (i < previousRound.size) {
-                    currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
-                    j++
-                    i += 2
-                }
-
+            //Add to list
+            var i = 0
+            var j = 0
+            while (i < previousRound.size) {
+                currentRound.add(j, Game(previousRound[i], previousRound[i+1], ""))
+                j++
+                i += 2
             }
         }
         else{ //Round not 1, so bracket is always in squares of 2
@@ -107,6 +81,7 @@ class SingleElim : AppCompatActivity(){
                 i += 2
             }
         }
+
         for(i in 0.until(currentRound.size)){
             if (currentRound[i].name1.length >= 3 && currentRound[i].name1.subSequence(0, 3) == "BYE") {
                 Log.d("debug", "inside 1")
@@ -118,7 +93,7 @@ class SingleElim : AppCompatActivity(){
             }
         }
 
-//        //Make the recyclerView Here
+        //Make the recyclerView Here
         filteredList= currentRound.filterNot { it.name1.startsWith("BYE") && it.name2.startsWith("BYE") }
         createRecyclerView(ArrayList(filteredList))
     }
@@ -127,7 +102,7 @@ class SingleElim : AppCompatActivity(){
         rv = findViewById(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(list)
+        var adapter = SingleElimAdapter(list, previousStatus)
         rv.adapter = adapter
     }
 
@@ -135,32 +110,55 @@ class SingleElim : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_view)
 
+        //Toolbar functionality
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.let{
             MainActivity.initActionBar(it, this)
         }
-
         titleSearch()
 
+        currentRound = ArrayList()
+        nextRound = ArrayList()
         bracket_type_title.text = "Single Elimination"
         roundNumber = intent.getIntExtra("round", 0)
         previousRound = intent.getStringArrayListExtra("list")
-        round_number.text = "Winners Round " + roundNumber + ", " + previousRound.size.toString() + " total competitors."
-        currentRound = ArrayList()
-        nextRound = ArrayList()
+        //TODO: Figure out number of participants remaining and add to text below
+        round_number.text = "Winners Round " + roundNumber
+        results = intent.getSerializableExtra("result") as ArrayList<List<Game>>
+
+        //previous round stuff
+        previousStatus = roundNumber <= results.size
+        if(previousStatus){
+            currentRound = ArrayList(results[roundNumber - 1])
+            filteredList= currentRound.filterNot { it.name1.startsWith("BYE") && it.name2.startsWith("BYE") }
+            createRecyclerView(ArrayList(filteredList))
+        }
+        else{
+            createOpponents()
+        }
 
         //Need to fix issue with not showing correctly some stuff with going back and creating another instead of getting right activity.
         previous_button.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            if(roundNumber == 1){
+                Toast.makeText(this, "This is the first round!", Toast.LENGTH_LONG).show()
+            }
+            else{
+                val intent = Intent(this, SingleElim::class.java)
+                intent.putExtra("list", nextRound)
+                intent.putExtra("round", roundNumber - 1)
+                intent.putExtra("result", results)
+                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                finish()
+            }
         }
         next_button.setOnClickListener{
             var allRecorded = true
             for(i in 0.until(currentRound.size)){
                 if(currentRound[i].winner == ""){
                     allRecorded = false
+                    break
                 }
             }
             if(!allRecorded){
@@ -170,21 +168,28 @@ class SingleElim : AppCompatActivity(){
                 for(j in 0.until(currentRound.size)){
                     nextRound.add(currentRound[j].winner)
                 }
-
+                if(!previousStatus){
+                    results.add(roundNumber-1, currentRound)
+                }
                 //winner
                 if(nextRound.size == 1){
                     val intent = Intent(this, Winner::class.java)
                     intent.putExtra("winner", nextRound[0])
+                    intent.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
                 }
                 else{
                     val intent = Intent(this, SingleElim::class.java)
                     intent.putExtra("list", nextRound)
                     intent.putExtra("round", roundNumber + 1)
+                    intent.putExtra("result", results)
+                    intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
                 }
             }
         }
-        createOpponents()
+
     }
 }

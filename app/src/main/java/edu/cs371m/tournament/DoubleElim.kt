@@ -111,7 +111,7 @@ class DoubleElim : AppCompatActivity(){
             val rv = findViewById<RecyclerView>(R.id.recyclerViewBracketWinner)
             rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter = SingleElimAdapter(currentRoundWinner)
+            var adapter = SingleElimAdapter(currentRoundWinner, false)
             rv.adapter = adapter
         }
 
@@ -120,7 +120,7 @@ class DoubleElim : AppCompatActivity(){
             val rvLoser = findViewById<RecyclerView>(R.id.recyclerViewBracketLoser)
             rvLoser.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter2 = SingleElimAdapter(currentRoundLoser)
+            var adapter2 = SingleElimAdapter(currentRoundLoser, false)
             rvLoser.adapter = adapter2
         }
 
