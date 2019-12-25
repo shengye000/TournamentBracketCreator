@@ -54,6 +54,7 @@ class ChallongeViewModel : ViewModel(){
         }
     }
 
+
     fun observeChallongeInfo() : LiveData<List<ChallongeInfo>> {
         return challongeInfo
     }

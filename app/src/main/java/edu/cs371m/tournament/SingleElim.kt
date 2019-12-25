@@ -52,6 +52,7 @@ class SingleElim : AppCompatActivity(){
 
     private fun createOpponents(){
         if(roundNumber == 1){
+            round_number.text = "Winners Round " + roundNumber + ", Number of Competitors: " + previousRound.size
             previousRound.shuffle()
             //Make sure bracket is in multiples of 2
             val N = log2(previousRound.size.toDouble())
@@ -73,6 +74,10 @@ class SingleElim : AppCompatActivity(){
             }
         }
         else{ //Round not 1, so bracket is always in squares of 2
+            //calculate num competitors.
+            var previousRoundNoBye : List<String> = previousRound.filterNot{s -> s.startsWith("BYE")}
+            round_number.text = "Winners Round " + roundNumber + ", Number of Competitors: " + previousRoundNoBye.size
+
             var i = 0
             var j = 0
             while (i < previousRound.size) {
@@ -84,11 +89,9 @@ class SingleElim : AppCompatActivity(){
 
         for(i in 0.until(currentRound.size)){
             if (currentRound[i].name1.length >= 3 && currentRound[i].name1.subSequence(0, 3) == "BYE") {
-                Log.d("debug", "inside 1")
                 currentRound[i].winner = currentRound[i].name2
             }
             if (currentRound[i].name2.length >=3 && currentRound[i].name2.subSequence(0, 3) == "BYE") {
-                Log.d("debug", "inside 2")
                 currentRound[i].winner = currentRound[i].name1
             }
         }
@@ -123,8 +126,6 @@ class SingleElim : AppCompatActivity(){
         bracket_type_title.text = "Single Elimination"
         roundNumber = intent.getIntExtra("round", 0)
         previousRound = intent.getStringArrayListExtra("list")
-        //TODO: Figure out number of participants remaining and add to text below
-        round_number.text = "Winners Round " + roundNumber
         results = intent.getSerializableExtra("result") as ArrayList<List<Game>>
 
         //previous round stuff
@@ -132,6 +133,14 @@ class SingleElim : AppCompatActivity(){
         if(previousStatus){
             currentRound = ArrayList(results[roundNumber - 1])
             filteredList= currentRound.filterNot { it.name1.startsWith("BYE") && it.name2.startsWith("BYE") }
+
+            //Number of participants for previousStatus
+            var numParticipants = filteredList.size * 2
+            if(filteredList[filteredList.size - 1].name1 == "BYE" || filteredList[filteredList.size - 1].name2 == "BYE"){
+                numParticipants--
+            }
+            round_number.text = "Winners Round " + roundNumber + ", Number of Competitors: " + numParticipants
+
             createRecyclerView(ArrayList(filteredList))
         }
         else{

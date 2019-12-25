@@ -2,9 +2,13 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.double_view.*
@@ -19,6 +23,29 @@ class DoubleElim : AppCompatActivity(){
     private lateinit var currentRoundLoser : ArrayList<Game>
     private lateinit var nextRoundWinner : ArrayList<String>
     private lateinit var nextRoundLoser :  ArrayList<String>
+
+    private fun titleSearch() {
+        val titleBar = findViewById<EditText>(R.id.actionSearch)
+        titleBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0!!.isEmpty()){
+                    MainActivity.hideKeyboardActivity(this@DoubleElim)
+                    createRecyclerView(currentRoundWinner, currentRoundLoser)
+                }
+                else{
+                    var filteredWinner : List<Game> = currentRoundWinner.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true)) }
+                    var filteredLoser : List<Game> = currentRoundLoser.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true)) }
+                    createRecyclerView(ArrayList(filteredWinner), ArrayList(filteredLoser))
+                }
+            }
+        })
+    }
 
     private fun createBracket(){
         //Last Game
@@ -102,16 +129,16 @@ class DoubleElim : AppCompatActivity(){
                     currentRoundLoser[i].winner = currentRoundLoser[i].name1
                 }
         }
-        createRecyclerView()
+        createRecyclerView(currentRoundWinner, currentRoundLoser)
     }
 
-    private fun createRecyclerView(){
+    private fun createRecyclerView(winner : ArrayList<Game>, loser: ArrayList<Game>){
         //Winners
         if(roundNumber == 1 || roundNumber % 2 == 0){
             val rv = findViewById<RecyclerView>(R.id.recyclerViewBracketWinner)
             rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter = SingleElimAdapter(currentRoundWinner, false)
+            var adapter = SingleElimAdapter(winner, false)
             rv.adapter = adapter
         }
 
@@ -120,7 +147,7 @@ class DoubleElim : AppCompatActivity(){
             val rvLoser = findViewById<RecyclerView>(R.id.recyclerViewBracketLoser)
             rvLoser.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-            var adapter2 = SingleElimAdapter(currentRoundLoser, false)
+            var adapter2 = SingleElimAdapter(loser, false)
             rvLoser.adapter = adapter2
         }
 
@@ -130,6 +157,14 @@ class DoubleElim : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.double_view)
+
+        //Toolbar functionality
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
+        titleSearch()
 
         roundNumber = intent.getIntExtra("round", 0)
         previousRoundWinner = intent.getStringArrayListExtra("winner_list")
@@ -154,6 +189,8 @@ class DoubleElim : AppCompatActivity(){
         currentRoundLoser = ArrayList()
         nextRoundWinner = ArrayList()
         nextRoundLoser = ArrayList()
+
+        createBracket()
 
         previous_button.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -259,6 +296,6 @@ class DoubleElim : AppCompatActivity(){
                 }
             }
         }
-        createBracket()
+
     }
 }

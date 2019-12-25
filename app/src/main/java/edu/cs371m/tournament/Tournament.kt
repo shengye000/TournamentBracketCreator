@@ -19,54 +19,42 @@ class Tournament : AppCompatActivity(){
     private var chosenTournamentURL = ""
     private var apiKey = ""
 
+    private fun getInfo(apiKey: String) {
+        viewModel.chosenapiKey(apiKey)
+
+        viewModel.observeTournamentInfo().observe(this, Observer{
+            tournamentList = it
+            if(tournamentList.isNotEmpty()){
+                val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
+                rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+                var adapter = TournamentAdapter(tournamentList){
+                    chosenTournamentURL = it
+                    Log.d("debug",chosenTournamentURL)
+                    chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
+                }
+                rv.adapter = adapter
+            }
+        })
+        viewModel.netRefreshTournament()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tournament_view)
-        api_key_button.setOnClickListener {
-            apiKey = api_key_edit.text.toString()
-            if(apiKey == ""){
-                Toast.makeText(this, "NO API KEY WRITTEN", Toast.LENGTH_LONG).show()
+        login_button.setOnClickListener {
+            //Login with username and password
+            if(challonge_username.text.isNotEmpty() && challonge_password.text.isNotEmpty()){
+                apiKey = challonge_password.text.toString()
+                getInfo(apiKey)
             }
             else{
-                viewModel.chosenapiKey(apiKey)
-
-                viewModel.observeTournamentInfo().observe(this, Observer{
-                    tournamentList = it
-                    if(tournamentList.isNotEmpty()){
-                        val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
-                        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-                        var adapter = TournamentAdapter(tournamentList){
-                            chosenTournamentURL = it
-                            Log.d("debug",chosenTournamentURL)
-                            chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
-                        }
-                        rv.adapter = adapter
-                    }
-                })
-                viewModel.netRefreshTournament()
+                Toast.makeText(this, "INVALID USERNAME OR PASSWORD", Toast.LENGTH_LONG).show()
             }
-
         }
         default_api_button.setOnClickListener {
-            apiKey = ""
-            viewModel.chosenapiKey(apiKey)
-
-            viewModel.observeTournamentInfo().observe(this, Observer{
-                tournamentList = it
-                if(tournamentList.isNotEmpty()){
-                    val rv = findViewById<RecyclerView>(R.id.recyclerViewTournament)
-                    rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-                    var adapter = TournamentAdapter(tournamentList){
-                        chosenTournamentURL = it
-                        Log.d("debug",chosenTournamentURL)
-                        chosen_tournament.text = "Tournament URL: " + chosenTournamentURL
-                    }
-                    rv.adapter = adapter
-                }
-            })
-            viewModel.netRefreshTournament()
+            
+            getInfo(apiKey)
         }
 
         chosen_tournament.text = "Tournament URL: " + chosenTournamentURL

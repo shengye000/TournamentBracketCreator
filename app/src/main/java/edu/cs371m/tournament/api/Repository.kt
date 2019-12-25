@@ -9,4 +9,5 @@ class Repository(private val api : ChallongeApi){
     suspend fun getTournament(apiKey: String) :List<TournamentInfo> {
         return api.getTournamentResponse(apiKey)
     }
+
 }

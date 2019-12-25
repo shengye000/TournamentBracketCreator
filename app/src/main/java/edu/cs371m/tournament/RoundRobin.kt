@@ -2,8 +2,12 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_view.*
@@ -17,6 +21,29 @@ class RoundRobin : AppCompatActivity(){
     private lateinit var currentRound : ArrayList<RoundRobinGame>
     private lateinit var currentRoundCalc : ArrayList<RoundRobinData>
     private lateinit var nextRound : ArrayList<String>
+
+    private fun titleSearch() {
+        val titleBar = findViewById<EditText>(R.id.actionSearch)
+        titleBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0!!.isEmpty()){
+                    MainActivity.hideKeyboardActivity(this@RoundRobin)
+                    createRecyclerView(ArrayList(currentRound))
+                }
+                else{
+                    var currentRoundFilter = currentRound.filter{s -> (s.p1.contains(p0, true) || s.p2.contains(p0, true)
+                            || s.p3.contains(p0, true) || s.p4.contains(p0, true))}
+                    createRecyclerView(ArrayList(currentRoundFilter))
+                }
+            }
+        })
+    }
 
     private fun makeBracket(){
         previousRound.shuffle()
@@ -53,11 +80,11 @@ class RoundRobin : AppCompatActivity(){
 
     }
 
-    private fun createRecyclerView(){
+    private fun createRecyclerView(list: ArrayList<RoundRobinGame>){
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = RoundRobinAdapter(currentRound)
+        var adapter = RoundRobinAdapter(list)
         rv.adapter = adapter
     }
 
@@ -65,12 +92,23 @@ class RoundRobin : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_view)
 
+        //Toolbar functionality
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
+        titleSearch()
+
         roundNumber = intent.getIntExtra("round", 0)
         previousRound = intent.getStringArrayListExtra("list")
         bracket_type_title.text = "Round Robin Round " + roundNumber.toString()
         currentRound = ArrayList()
         currentRoundCalc = ArrayList()
         nextRound = ArrayList()
+
+        makeBracket()
+        createRecyclerView(currentRound)
 
         previous_button.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -157,7 +195,6 @@ class RoundRobin : AppCompatActivity(){
                 Toast.makeText(this, "Not all rounds have been recorded", Toast.LENGTH_LONG).show()
             }
         }
-        makeBracket()
-        createRecyclerView()
+
     }
 }

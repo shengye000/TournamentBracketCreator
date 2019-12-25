@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -20,6 +21,7 @@ interface ChallongeApi{
 
     @GET("/v1/tournaments.json")
     suspend fun getTournamentResponse(@Query("api_key") apiKey: String) : List<TournamentInfo>
+
 
     companion object {
         var httpurl = HttpUrl.Builder()

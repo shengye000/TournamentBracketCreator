@@ -81,7 +81,10 @@ class Challonge : AppCompatActivity(){
                     val intent = Intent(this, SingleElim::class.java)
                     intent.putExtra("list", ArrayList(currentList))
                     intent.putExtra("round", 1)
+                    intent.putExtra("result", ArrayList<List<Game>>())
+                    intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
+                    finish()
                 }
                 double_button.setOnClickListener {
                     val intent = Intent(this, DoubleElim::class.java)

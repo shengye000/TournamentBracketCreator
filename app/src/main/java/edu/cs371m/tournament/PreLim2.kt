@@ -2,9 +2,13 @@ package edu.cs371m.tournament
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.Toast
 import java.io.Serializable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.single_view.*
@@ -23,6 +27,28 @@ class PreLim2 : AppCompatActivity(), Serializable{
     private lateinit var currentRound: ArrayList<Game>
     private lateinit var nextRound : ArrayList<PreLimData>
     private lateinit var listOfWinners : ArrayList<String>
+
+    private fun titleSearch() {
+        val titleBar = findViewById<EditText>(R.id.actionSearch)
+        titleBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0!!.isEmpty()){
+                    MainActivity.hideKeyboardActivity(this@PreLim2)
+                    createRecyclerView(ArrayList(currentRound))
+                }
+                else{
+                    var currentRoundFilter = currentRound.filter{s -> (s.name1.contains(p0, true) || s.name2.contains(p0, true))}
+                    createRecyclerView(ArrayList(currentRoundFilter))
+                }
+            }
+        })
+    }
 
     private fun createOpponents(){
         // Pair base on same win-loss ratio, hopefully this really works!
@@ -71,14 +97,14 @@ class PreLim2 : AppCompatActivity(), Serializable{
             }
         }
 
-        createRecyclerView()
+        createRecyclerView(currentRound)
     }
 
-    private fun createRecyclerView(){
+    private fun createRecyclerView(list: ArrayList<Game>){
         val rv = findViewById<RecyclerView>(R.id.recyclerViewBracket)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        var adapter = SingleElimAdapter(currentRound, false)
+        var adapter = SingleElimAdapter(list, false)
         rv.adapter = adapter
 
     }
@@ -86,6 +112,14 @@ class PreLim2 : AppCompatActivity(), Serializable{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_view)
+
+        //Toolbar functionality
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
+        titleSearch()
 
         bracket_type_title.text = "Pre-Elimination"
         roundNumber = intent.getIntExtra("round", 0)
@@ -104,6 +138,8 @@ class PreLim2 : AppCompatActivity(), Serializable{
             numBye++
             previousRound.add(PreLimData("BYE#" + numBye.toString(), 0))
         }
+
+        createOpponents()
 
         //Need to fix issue with not showing correctly some stuff with going back and creating another instead of getting right activity.
         previous_button.setOnClickListener {
@@ -173,6 +209,5 @@ class PreLim2 : AppCompatActivity(), Serializable{
                 }
             }
         }
-        createOpponents()
     }
 }
