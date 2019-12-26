@@ -104,5 +104,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Tournament::class.java)
             startActivity(intent)
         }
+        view.findViewById<Button>(R.id.challonge_create_button).setOnClickListener{
+            val intent = Intent(this, CreateTournament::class.java)
+            startActivity(intent)
+        }
     }
 }

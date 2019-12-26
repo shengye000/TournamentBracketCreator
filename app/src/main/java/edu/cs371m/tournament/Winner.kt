@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.winner_page.*
 import android.content.Intent
 import android.graphics.Color
 import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
@@ -16,6 +17,13 @@ class Winner : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.winner_page)
+
+        //Toolbar functionality
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
 
         //Add gif of celebration
         val iView = findViewById<ImageView>(R.id.test_image)

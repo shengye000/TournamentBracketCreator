@@ -3,15 +3,12 @@ package edu.cs371m.tournament.api
 import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ChallongeApi{
 
@@ -22,6 +19,8 @@ interface ChallongeApi{
     @GET("/v1/tournaments.json")
     suspend fun getTournamentResponse(@Query("api_key") apiKey: String) : List<TournamentInfo>
 
+    @POST( "v1/tournaments.json")
+    suspend fun createTournamentResponse(@Body info : CreateInfo, @Query("api_key") apiKey: String) : TournamentInfo
 
     companion object {
         var httpurl = HttpUrl.Builder()
@@ -41,6 +40,9 @@ interface ChallongeApi{
                     var response = chain.proceed(request)
                         if (response.code == 401){
                             Log.d("debug", "Wrong API Key Error")
+                        }
+                        if (response.code == 422){
+                            Log.d("debug_422", "Error Message " + response.body!!.string())
                         }
                     response
                 }

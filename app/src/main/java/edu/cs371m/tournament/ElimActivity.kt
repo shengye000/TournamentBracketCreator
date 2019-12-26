@@ -119,6 +119,9 @@ class ElimActivity : AppCompatActivity() {
             if(text.isNullOrEmpty()){
                 Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
             }
+            else if(text.toString().toInt() > 100){
+                Toast.makeText(this, "You cannot add more than 100 opponents at once.", Toast.LENGTH_LONG).show()
+            }
             else{
                for(i in 0.until(text.toString().toInt())){
                    mutableList.add("PLAYER" + anonNum)

@@ -50,6 +50,9 @@
         <activity android:name=".Tournament" android:windowSoftInputMode="adjustPan">
 
         </activity>
+        <activity android:name=".CreateTournament" android:windowSoftInputMode="adjustPan">
+
+        </activity>
     </application>
 
 </manifest>

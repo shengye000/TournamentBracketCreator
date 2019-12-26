@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,14 @@ class Tournament : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tournament_view)
+
+        //Toolbar functionality
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            MainActivity.initActionBar(it, this)
+        }
+
         login_button.setOnClickListener {
             //Login with username and password
             if(challonge_username.text.isNotEmpty() && challonge_password.text.isNotEmpty()){
@@ -53,7 +62,7 @@ class Tournament : AppCompatActivity(){
             }
         }
         default_api_button.setOnClickListener {
-            
+            apiKey = ""
             getInfo(apiKey)
         }
 
