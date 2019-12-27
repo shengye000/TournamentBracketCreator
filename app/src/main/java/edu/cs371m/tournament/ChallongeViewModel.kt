@@ -25,9 +25,6 @@ class ChallongeViewModel : ViewModel(){
         value = ""
     }
 
-
-
-
     fun returnapiKey() : String{
         return apiKey.value.toString()
     }
@@ -54,6 +51,16 @@ class ChallongeViewModel : ViewModel(){
                 context = viewModelScope.coroutineContext
                         + Dispatchers.IO){
                 createTournamentInfo.postValue(challongeRepo.createTournament(CreateInfo(CreateTournament(s1, s2, s3, s4)), apiKey.value.toString()))
+            }
+        }
+    }
+
+    fun deleteTournamentInfo(tourney: String){
+        if(apiKey.value.toString() != "" && tourney != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                challongeRepo.deleteTournament(tourney, apiKey.value.toString())
             }
         }
     }

@@ -22,6 +22,10 @@ interface ChallongeApi{
     @POST( "v1/tournaments.json")
     suspend fun createTournamentResponse(@Body info : CreateInfo, @Query("api_key") apiKey: String) : TournamentInfo
 
+    @DELETE ("v1/tournaments/{tournament}.json")
+    suspend fun deleteTournamentResponse(@Path("tournament") tournament: String,
+                                         @Query("api_key") apiKey: String)
+
     companion object {
         var httpurl = HttpUrl.Builder()
             .scheme("https")

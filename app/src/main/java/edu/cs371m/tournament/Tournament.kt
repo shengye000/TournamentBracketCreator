@@ -80,12 +80,17 @@ class Tournament : AppCompatActivity(){
             }
         }
         button_cancel.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            //Delete the tournament selected
+            if(chosenTournamentURL == ""){
+                Toast.makeText(this, "NO TOURNAMENT CHOSEN", Toast.LENGTH_LONG).show()
+            }
+            else{
+                viewModel.deleteTournamentInfo(chosenTournamentURL)
+                Thread.sleep(1000)
+                getInfo(apiKey)
+            }
         }
 
         viewModel = ViewModelProviders.of(this)[ChallongeViewModel::class.java]
-
     }
 }

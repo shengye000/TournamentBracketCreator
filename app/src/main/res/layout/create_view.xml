@@ -25,9 +25,41 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Create On Challonge"
+        android:text="Create Tournament On Challonge"
         android:gravity="center"
+        android:autoSizeTextType="uniform"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:background="@drawable/textboxborder">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/create_view_username"
+            android:hint="Challonge Username:"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/create_view_password"
+            android:hint="Challonge Password:"
+            />
+    </LinearLayout>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/create_view_api_button"
+        android:text="OR Use Example Account"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -64,22 +96,26 @@
                 android:orientation="vertical">
                 <RadioButton android:id="@+id/radio_single"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="Single Elimination"
                     android:onClick="onRadioButtonClicked"/>
                 <RadioButton android:id="@+id/radio_double"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="Double Elimination"
                     android:onClick="onRadioButtonClicked"/>
                 <RadioButton android:id="@+id/radio_rr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="Round Robin"
                     android:onClick="onRadioButtonClicked"/>
                 <RadioButton android:id="@+id/radio_swiss"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="Swiss"
                     android:onClick="onRadioButtonClicked"/>
             </RadioGroup>
@@ -87,7 +123,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
@@ -107,14 +143,9 @@
         android:layout_weight="1"
         android:id="@+id/create_view_button"
         android:text="Create On Challonge"
+        android:background="@color/lime"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Result:"
-        android:id="@+id/create_view_result"
-        />
+
 
 
 </LinearLayout>
