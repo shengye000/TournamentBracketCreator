@@ -62,7 +62,7 @@ class Tournament : AppCompatActivity(){
             }
         }
         default_api_button.setOnClickListener {
-            apiKey = ""
+            apiKey = "cTKUsryOZVAkixOD6I1PCf3PsRRJAWjvM1ahkd7Q"
             getInfo(apiKey)
         }
 

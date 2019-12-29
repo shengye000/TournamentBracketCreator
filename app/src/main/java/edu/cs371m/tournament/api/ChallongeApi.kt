@@ -19,12 +19,23 @@ interface ChallongeApi{
     @GET("/v1/tournaments.json")
     suspend fun getTournamentResponse(@Query("api_key") apiKey: String) : List<TournamentInfo>
 
-    @POST( "v1/tournaments.json")
-    suspend fun createTournamentResponse(@Body info : CreateInfo, @Query("api_key") apiKey: String) : TournamentInfo
+    @POST( "/v1/tournaments.json")
+    suspend fun createTournamentResponse(@Body info : CreateInfo,
+                                         @Query("api_key") apiKey: String) : TournamentInfo
 
-    @DELETE ("v1/tournaments/{tournament}.json")
+    @DELETE ("/v1/tournaments/{tournament}.json")
     suspend fun deleteTournamentResponse(@Path("tournament") tournament: String,
                                          @Query("api_key") apiKey: String)
+
+    @POST ("/v1/tournaments/{tourney}/participants.json")
+    suspend fun createParticipantResponse(@Body info : CreateInfo2,
+                                          @Path("tourney") tournament: String,
+                                          @Query("api_key") apiKey: String) : ChallongeInfo
+
+    @DELETE ("/v1/tournaments/{tournament}/participants/{participant_id}.json")
+    suspend fun deleteParticipantResponse(@Path("tournament") tournament: String,
+                                          @Path("participant_id") id : Int,
+                                          @Query("api_key") apiKey: String)
 
     companion object {
         var httpurl = HttpUrl.Builder()

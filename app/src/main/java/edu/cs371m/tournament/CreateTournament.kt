@@ -68,7 +68,7 @@ class CreateTournament : AppCompatActivity(){
             }
             else{
                 if(create_view_api_button.isChecked){
-                    apiKey = ""
+                    apiKey = "cTKUsryOZVAkixOD6I1PCf3PsRRJAWjvM1ahkd7Q"
                 }
                 else{
                     apiKey = create_view_password.text.toString()

@@ -15,8 +15,8 @@ class ChallongeViewModel : ViewModel(){
     private val challongeRepo = Repository(challongeAPI)
     private val challongeInfo = MutableLiveData<List<ChallongeInfo>>()
     private val tournamentInfo = MutableLiveData<List<TournamentInfo>>()
-
     private val createTournamentInfo = MutableLiveData<TournamentInfo>()
+    private val createParticipantInfo = MutableLiveData<ChallongeInfo>()
 
     private var url = MutableLiveData<String>().apply{
         value = ""
@@ -39,7 +39,19 @@ class ChallongeViewModel : ViewModel(){
         url.value = string
     }
 
+    fun observeCreateParticipantInfo() : LiveData<ChallongeInfo> {
+        return createParticipantInfo
+    }
 
+    fun netRefreshCreateParticipant(s1: String, i1: Int){
+        if(apiKey.value.toString() != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                createParticipantInfo.postValue(challongeRepo.createParticipant(CreateInfo2(CreateParticipants(s1, i1)), url.value.toString(), apiKey.value.toString()))
+            }
+        }
+    }
 
     fun createObserveTournamentInfo() : LiveData<TournamentInfo> {
         return createTournamentInfo
@@ -61,6 +73,16 @@ class ChallongeViewModel : ViewModel(){
                 context = viewModelScope.coroutineContext
                         + Dispatchers.IO){
                 challongeRepo.deleteTournament(tourney, apiKey.value.toString())
+            }
+        }
+    }
+
+    fun deleteParticipantInfo(tourney: String, id: Int){
+        if(apiKey.value.toString() != "" && tourney != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                challongeRepo.deleteParticipant(tourney, id, apiKey.value.toString())
             }
         }
     }

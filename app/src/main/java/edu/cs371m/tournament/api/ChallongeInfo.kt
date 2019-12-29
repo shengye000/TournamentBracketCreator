@@ -11,7 +11,9 @@ import com.google.gson.annotations.SerializedName
         @SerializedName("name")
         val name : String,
         @SerializedName("seed")
-        val seed : Int
+        val seed : Int,
+        @SerializedName("id")
+        val id : Int
     )
 
 
