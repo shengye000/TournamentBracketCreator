@@ -57,6 +57,34 @@
             />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/add_all_but"
+            android:text="ADD ALL (comma)"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/del_all_but"
+            android:text="Delete ALL"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/shuffle_but"
+            android:text="Shuffle"
+            />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChallonge"
         android:layout_width="match_parent"
@@ -65,44 +93,53 @@
         android:background="@drawable/customborder"
         />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/single_button"
-        android:text="Single Elimination"
-        android:background="@color/aqua"
-        />
-    <Button
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/single_button"
+            android:text="Single Elimination"
+            android:background="@color/aqua"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/double_button"
+            android:text="Double Elimination"
+            android:background="@color/fuchsia"
+            />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/double_button"
-        android:text="Double Elimination"
-        android:background="@color/fuchsia"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/rr_button"
-        android:text="Round Robin"
-        android:background="@color/yellow"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/prelim_button"
-        android:text="Pre Elimination + Single"
-        android:background="@color/lime"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/cancel_button"
-        android:text="cancel"
-        android:background="@color/red"
-    />
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/rr_button"
+            android:text="Round Robin"
+            android:background="@color/yellow"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/prelim_button"
+            android:text="Pre Elimination + Single"
+            android:background="@color/lime"
+            />
+    </LinearLayout>
+
+
 </LinearLayout>

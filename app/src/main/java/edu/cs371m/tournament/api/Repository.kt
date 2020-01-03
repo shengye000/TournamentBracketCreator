@@ -25,4 +25,12 @@ class Repository(private val api : ChallongeApi){
     suspend fun deleteParticipant(tournament: String, id: Int, apiKey: String) {
         api.deleteParticipantResponse(tournament, id, apiKey)
     }
+
+    suspend fun deleteAllParticipant(tournament: String, apiKey: String){
+        api.deleteAllParticipantResponse(tournament, apiKey)
+    }
+
+    suspend fun randomize(tournament: String, apiKey: String){
+        api.randomizeResponse(tournament, apiKey)
+    }
 }

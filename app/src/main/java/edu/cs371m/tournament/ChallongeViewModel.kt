@@ -115,6 +115,23 @@ class ChallongeViewModel : ViewModel(){
         }
     }
 
+    fun deleteAllParticipantInfo(tourney: String){
+        if(apiKey.value.toString() != "" && tourney != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                challongeRepo.deleteAllParticipant(tourney, apiKey.value.toString())
+            }
+        }
+    }
 
-
+    fun randomizeInfo(tourney: String){
+        if(apiKey.value.toString() != "" && tourney != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                challongeRepo.randomize(tourney, apiKey.value.toString())
+            }
+        }
+    }
 }

@@ -108,6 +108,19 @@ class Challonge : AppCompatActivity(){
             edit_but.text.clear()
             MainActivity.hideKeyboardActivity(this@Challonge)
         }
+        add_all_but.setOnClickListener {
+
+        }
+        del_all_but.setOnClickListener {
+            viewModel.deleteAllParticipantInfo(viewModel.returnURL())
+            Thread.sleep(1000)
+            refreshList()
+        }
+        shuffle_but.setOnClickListener {
+            viewModel.randomizeInfo(viewModel.returnURL())
+            Thread.sleep(1000)
+            refreshList()
+        }
         single_button.setOnClickListener {
             val intent = Intent(this, SingleElim::class.java)
             intent.putExtra("list", ArrayList(currentList))
@@ -137,10 +150,5 @@ class Challonge : AppCompatActivity(){
             startActivity(intent)
         }
 
-        cancel_button.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
-        }
     }
 }

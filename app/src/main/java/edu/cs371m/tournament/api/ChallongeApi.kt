@@ -37,6 +37,16 @@ interface ChallongeApi{
                                           @Path("participant_id") id : Int,
                                           @Query("api_key") apiKey: String)
 
+    @DELETE ("v1/tournaments/{tournament}/participants/clear.json")
+    suspend fun deleteAllParticipantResponse(@Path("tournament") tournament: String,
+                                             @Query("api_key") apiKey: String)
+
+    @POST ("v1/tournaments/{tournament}/participants/randomize.json")
+    suspend fun randomizeResponse(@Path("tournament") tournament: String,
+                                  @Query("api_key") apiKey: String)
+
+
+
     companion object {
         var httpurl = HttpUrl.Builder()
             .scheme("https")
