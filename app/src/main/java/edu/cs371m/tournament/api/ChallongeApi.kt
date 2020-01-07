@@ -45,7 +45,11 @@ interface ChallongeApi{
     suspend fun randomizeResponse(@Path("tournament") tournament: String,
                                   @Query("api_key") apiKey: String)
 
-
+    @FormUrlEncoded
+    @POST("v1/tournaments/{tournament}/participants/bulk_add.json")
+    suspend fun bulkAddParticipantResponse(@Field("participants[][name]") info: ArrayList<String>,
+                                           @Path("tournament") tournament: String,
+                                           @Query("api_key") apiKey: String)
 
     companion object {
         var httpurl = HttpUrl.Builder()

@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.tournament.api.ChallongeInfo
+import edu.cs371m.tournament.api.CreateInfo2
+import edu.cs371m.tournament.api.CreateParticipants
 import kotlinx.android.synthetic.main.challonge_view.*
 
 class Challonge : AppCompatActivity(){
@@ -65,6 +67,7 @@ class Challonge : AppCompatActivity(){
         viewModel.chosenapiKey(intent.getStringExtra("api_string"))
         Log.d("debug", "In challonge" + viewModel.returnURL())
 
+        currentList = mutableListOf()
         refreshList()
 
         add_but.setOnClickListener {
@@ -109,6 +112,29 @@ class Challonge : AppCompatActivity(){
             MainActivity.hideKeyboardActivity(this@Challonge)
         }
         add_all_but.setOnClickListener {
+            val text = edit_but.text
+            if(text.isEmpty()){
+                Toast.makeText(this, "Text Box is empty.", Toast.LENGTH_LONG).show()
+            }
+            else{
+                var result: List<String> = text.toString().split(",").map { it.trim() }
+                var canAdd = true
+                Log.d("result", result.toString())
+                //check if duplicates exist in the list.
+                result.forEach{
+                    if(currentList.contains(it)){
+                        Toast.makeText(this, it + " is a duplicate in the list. Cannot add.", Toast.LENGTH_SHORT).show()
+                        canAdd = false
+                    }
+                }
+                //if able to be added to the list
+                if(canAdd){
+                    //do the add
+                    viewModel.bulkAddParticipantInfo(viewModel.returnURL(), ArrayList(result))
+                    Thread.sleep(1000)
+                    refreshList()
+                }
+            }
 
         }
         del_all_but.setOnClickListener {
@@ -121,6 +147,8 @@ class Challonge : AppCompatActivity(){
             Thread.sleep(1000)
             refreshList()
         }
+
+        //TODO: Set up 4 competitor requirement
         single_button.setOnClickListener {
             val intent = Intent(this, SingleElim::class.java)
             intent.putExtra("list", ArrayList(currentList))

@@ -76,7 +76,9 @@ class Tournament : AppCompatActivity(){
                 Log.d("debug", "in Tournament" + viewModel.returnURL())
                 intent.putExtra("url_string", chosenTournamentURL)
                 intent.putExtra("api_string", apiKey)
+                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                finish()
             }
         }
         button_cancel.setOnClickListener {

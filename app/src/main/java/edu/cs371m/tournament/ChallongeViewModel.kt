@@ -134,4 +134,14 @@ class ChallongeViewModel : ViewModel(){
             }
         }
     }
+
+    fun bulkAddParticipantInfo(tourney: String, listParticipant: ArrayList<String>){
+        if(apiKey.value.toString() != "" && tourney != ""){
+            viewModelScope.launch(
+                context = viewModelScope.coroutineContext
+                        + Dispatchers.IO){
+                challongeRepo.bulkAddParticipant(tourney, listParticipant, apiKey.value.toString())
+            }
+        }
+    }
 }

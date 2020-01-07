@@ -33,4 +33,8 @@ class Repository(private val api : ChallongeApi){
     suspend fun randomize(tournament: String, apiKey: String){
         api.randomizeResponse(tournament, apiKey)
     }
+
+    suspend fun bulkAddParticipant(tournament: String, listParticipant: ArrayList<String>, apiKey: String){
+        api.bulkAddParticipantResponse(listParticipant, tournament, apiKey)
+    }
 }
